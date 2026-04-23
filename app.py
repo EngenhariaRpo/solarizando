@@ -1,4 +1,5 @@
 import math
+import unicodedata
 from io import BytesIO
 
 import pandas as pd
@@ -19,44 +20,128 @@ st.set_page_config(page_title="Solarizando", layout="wide")
 # BASES INICIAIS
 # =========================================================
 
-IRRADIACAO_CIDADES = {
+IRRADIACAO_REFERENCIA = {
     ("PI", "Teresina"): {"jan": 4.93, "fev": 5.12, "mar": 5.14, "abr": 5.13, "mai": 5.23, "jun": 5.41, "jul": 5.69, "ago": 6.19, "set": 6.49, "out": 6.25, "nov": 5.97, "dez": 5.43},
     ("PI", "Parnaíba"): {"jan": 5.15, "fev": 5.27, "mar": 5.22, "abr": 5.14, "mai": 5.21, "jun": 5.36, "jul": 5.58, "ago": 5.95, "set": 6.08, "out": 5.96, "nov": 5.71, "dez": 5.39},
     ("PI", "Picos"): {"jan": 5.08, "fev": 5.20, "mar": 5.18, "abr": 5.16, "mai": 5.25, "jun": 5.44, "jul": 5.73, "ago": 6.14, "set": 6.38, "out": 6.16, "nov": 5.91, "dez": 5.47},
-
     ("MA", "São Luís"): {"jan": 5.02, "fev": 5.10, "mar": 5.00, "abr": 4.95, "mai": 5.05, "jun": 5.20, "jul": 5.45, "ago": 5.90, "set": 6.10, "out": 6.00, "nov": 5.70, "dez": 5.30},
     ("MA", "Imperatriz"): {"jan": 5.18, "fev": 5.24, "mar": 5.11, "abr": 5.02, "mai": 5.12, "jun": 5.31, "jul": 5.59, "ago": 6.02, "set": 6.22, "out": 6.07, "nov": 5.74, "dez": 5.36},
     ("MA", "Balsas"): {"jan": 5.22, "fev": 5.26, "mar": 5.12, "abr": 5.03, "mai": 5.14, "jun": 5.34, "jul": 5.63, "ago": 6.08, "set": 6.29, "out": 6.11, "nov": 5.78, "dez": 5.39},
     ("MA", "Caxias"): {"jan": 4.97, "fev": 5.08, "mar": 5.06, "abr": 5.04, "mai": 5.14, "jun": 5.31, "jul": 5.58, "ago": 6.05, "set": 6.29, "out": 6.08, "nov": 5.80, "dez": 5.34},
     ("MA", "Timon"): {"jan": 4.93, "fev": 5.12, "mar": 5.14, "abr": 5.13, "mai": 5.23, "jun": 5.41, "jul": 5.69, "ago": 6.19, "set": 6.49, "out": 6.25, "nov": 5.97, "dez": 5.43},
+}
 
-    ("CE", "Fortaleza"): {"jan": 5.60, "fev": 5.75, "mar": 5.65, "abr": 5.45, "mai": 5.55, "jun": 5.80, "jul": 6.05, "ago": 6.30, "set": 6.45, "out": 6.35, "nov": 6.10, "dez": 5.85},
-    ("CE", "Juazeiro do Norte"): {"jan": 5.42, "fev": 5.50, "mar": 5.41, "abr": 5.31, "mai": 5.39, "jun": 5.58, "jul": 5.88, "ago": 6.24, "set": 6.41, "out": 6.20, "nov": 5.93, "dez": 5.56},
-    ("CE", "Sobral"): {"jan": 5.47, "fev": 5.60, "mar": 5.52, "abr": 5.36, "mai": 5.45, "jun": 5.67, "jul": 5.93, "ago": 6.25, "set": 6.39, "out": 6.22, "nov": 5.96, "dez": 5.61},
-
-    ("PE", "Recife"): {"jan": 5.30, "fev": 5.45, "mar": 5.35, "abr": 5.10, "mai": 4.95, "jun": 4.80, "jul": 4.95, "ago": 5.20, "set": 5.55, "out": 5.70, "nov": 5.75, "dez": 5.60},
-    ("PE", "Caruaru"): {"jan": 5.26, "fev": 5.36, "mar": 5.28, "abr": 5.12, "mai": 4.98, "jun": 4.86, "jul": 5.01, "ago": 5.29, "set": 5.62, "out": 5.78, "nov": 5.80, "dez": 5.63},
-    ("PE", "Petrolina"): {"jan": 5.55, "fev": 5.61, "mar": 5.49, "abr": 5.36, "mai": 5.41, "jun": 5.58, "jul": 5.85, "ago": 6.19, "set": 6.35, "out": 6.18, "nov": 5.96, "dez": 5.63},
-
-    ("BA", "Salvador"): {"jan": 5.10, "fev": 5.25, "mar": 5.10, "abr": 4.85, "mai": 4.70, "jun": 4.60, "jul": 4.85, "ago": 5.15, "set": 5.35, "out": 5.45, "nov": 5.50, "dez": 5.35},
-    ("BA", "Feira de Santana"): {"jan": 5.26, "fev": 5.34, "mar": 5.20, "abr": 4.98, "mai": 4.83, "jun": 4.71, "jul": 4.93, "ago": 5.21, "set": 5.43, "out": 5.56, "nov": 5.60, "dez": 5.42},
-    ("BA", "Barreiras"): {"jan": 5.38, "fev": 5.41, "mar": 5.26, "abr": 5.03, "mai": 4.96, "jun": 4.88, "jul": 5.09, "ago": 5.38, "set": 5.62, "out": 5.73, "nov": 5.75, "dez": 5.55},
+CIDADES_POR_UF = {
+    "PI": [
+        "Acauã", "Agricolândia", "Água Branca", "Alagoinha do Piauí", "Alegrete do Piauí",
+        "Alto Longá", "Altos", "Alvorada do Gurguéia", "Amarante", "Angical do Piauí",
+        "Anísio de Abreu", "Antônio Almeida", "Aroazes", "Aroeiras do Itaim", "Arraial",
+        "Assunção do Piauí", "Avelino Lopes", "Baixa Grande do Ribeiro", "Barra d'Alcântara",
+        "Barras", "Barreiras do Piauí", "Barro Duro", "Batalha", "Bela Vista do Piauí",
+        "Belém do Piauí", "Beneditinos", "Bertolínia", "Betânia do Piauí", "Boa Hora",
+        "Bocaina", "Bom Jesus", "Bom Princípio do Piauí", "Bonfim do Piauí", "Boqueirão do Piauí",
+        "Brasileira", "Brejo do Piauí", "Buriti dos Lopes", "Buriti dos Montes", "Cabeceiras do Piauí",
+        "Cajazeiras do Piauí", "Cajueiro da Praia", "Caldeirão Grande do Piauí", "Campinas do Piauí",
+        "Campo Alegre do Fidalgo", "Campo Grande do Piauí", "Campo Largo do Piauí", "Campo Maior",
+        "Canavieira", "Canto do Buriti", "Capitão de Campos", "Capitão Gervásio Oliveira",
+        "Caracol", "Caraúbas do Piauí", "Caridade do Piauí", "Castelo do Piauí", "Caxingó",
+        "Cocal", "Cocal de Telha", "Cocal dos Alves", "Coivaras", "Colônia do Gurguéia",
+        "Colônia do Piauí", "Conceição do Canindé", "Coronel José Dias", "Corrente",
+        "Cristalândia do Piauí", "Cristino Castro", "Curimatá", "Currais", "Curral Novo do Piauí",
+        "Curralinhos", "Demerval Lobão", "Dirceu Arcoverde", "Dom Expedito Lopes",
+        "Domingos Mourão", "Dom Inocêncio", "Elesbão Veloso", "Eliseu Martins",
+        "Esperantina", "Fartura do Piauí", "Flores do Piauí", "Floresta do Piauí", "Floriano",
+        "Francinópolis", "Francisco Ayres", "Francisco Macedo", "Francisco Santos",
+        "Fronteiras", "Geminiano", "Gilbués", "Guadalupe", "Guaribas", "Hugo Napoleão",
+        "Ilha Grande", "Inhuma", "Ipiranga do Piauí", "Isaías Coelho", "Itainópolis",
+        "Itaueira", "Jacobina do Piauí", "Jaicós", "Jardim do Mulato", "Jatobá do Piauí",
+        "Jerumenha", "João Costa", "Joaquim Pires", "Joca Marques", "José de Freitas",
+        "Juazeiro do Piauí", "Júlio Borges", "Jurema", "Lagoa Alegre", "Lagoa de São Francisco",
+        "Lagoa do Barro do Piauí", "Lagoa do Piauí", "Lagoa do Sítio", "Lagoinha do Piauí",
+        "Landri Sales", "Luís Correia", "Luzilândia", "Madeiro", "Manoel Emídio", "Marcolândia",
+        "Marcos Parente", "Massapê do Piauí", "Matias Olímpio", "Miguel Alves", "Miguel Leão",
+        "Milton Brandão", "Monsenhor Gil", "Monsenhor Hipólito", "Monte Alegre do Piauí",
+        "Morro Cabeça no Tempo", "Morro do Chapéu do Piauí", "Murici dos Portelas",
+        "Nazaré do Piauí", "Nazária", "Nossa Senhora de Nazaré", "Nossa Senhora dos Remédios",
+        "Novo Oriente do Piauí", "Novo Santo Antônio", "Oeiras", "Olho d'Água do Piauí",
+        "Padre Marcos", "Paes Landim", "Pajeú do Piauí", "Palmeira do Piauí", "Palmeirais",
+        "Paquetá", "Parnaguá", "Parnaíba", "Passagem Franca do Piauí", "Patos do Piauí",
+        "Pau d'Arco do Piauí", "Paulistana", "Pavussu", "Pedro II", "Pedro Laurentino",
+        "Picos", "Pimenteiras", "Pio IX", "Piracuruca", "Piripiri", "Porto", "Porto Alegre do Piauí",
+        "Prata do Piauí", "Queimada Nova", "Redenção do Gurguéia", "Regeneração",
+        "Riacho Frio", "Ribeira do Piauí", "Ribeiro Gonçalves", "Rio Grande do Piauí",
+        "Santa Cruz do Piauí", "Santa Cruz dos Milagres", "Santa Filomena", "Santa Luz",
+        "Santana do Piauí", "Santa Rosa do Piauí", "Santo Antônio de Lisboa",
+        "Santo Antônio dos Milagres", "Santo Inácio do Piauí", "São Braz do Piauí",
+        "São Félix do Piauí", "São Francisco de Assis do Piauí", "São Francisco do Piauí",
+        "São Gonçalo do Gurguéia", "São Gonçalo do Piauí", "São João da Canabrava",
+        "São João da Fronteira", "São João da Serra", "São João da Varjota", "São João do Arraial",
+        "São João do Piauí", "São José do Divino", "São José do Peixe", "São José do Piauí",
+        "São Julião", "São Lourenço do Piauí", "São Luis do Piauí", "São Miguel da Baixa Grande",
+        "São Miguel do Fidalgo", "São Miguel do Tapuio", "São Pedro do Piauí",
+        "São Raimundo Nonato", "Sebastião Barros", "Sebastião Leal", "Sigefredo Pacheco",
+        "Simões", "Simplício Mendes", "Socorro do Piauí", "Sussuapara", "Tamboril do Piauí",
+        "Tanque do Piauí", "Teresina", "União", "Uruçuí", "Valença do Piauí", "Várzea Branca",
+        "Várzea Grande", "Vera Mendes", "Vila Nova do Piauí", "Wall Ferraz"
+    ],
+    "MA": [
+        "Açailândia", "Afonso Cunha", "Água Doce do Maranhão", "Alcântara", "Aldeias Altas",
+        "Altamira do Maranhão", "Alto Alegre do Maranhão", "Alto Alegre do Pindaré",
+        "Alto Parnaíba", "Amapá do Maranhão", "Amarante do Maranhão", "Anajatuba", "Anapurus",
+        "Apicum-Açu", "Araguanã", "Araioses", "Arame", "Arari", "Axixá", "Bacabal", "Bacabeira",
+        "Bacuri", "Bacurituba", "Balsas", "Barão de Grajaú", "Barra do Corda", "Barreirinhas",
+        "Bela Vista do Maranhão", "Belágua", "Benedito Leite", "Bequimão", "Bernardo do Mearim",
+        "Boa Vista do Gurupi", "Bom Jardim", "Bom Jesus das Selvas", "Bom Lugar", "Brejo",
+        "Brejo de Areia", "Buriti", "Buriti Bravo", "Buriticupu", "Buritirana", "Cachoeira Grande",
+        "Cajapió", "Cajari", "Campestre do Maranhão", "Cândido Mendes", "Cantanhede",
+        "Capinzal do Norte", "Carolina", "Carutapera", "Caxias", "Cedral", "Central do Maranhão",
+        "Centro do Guilherme", "Centro Novo do Maranhão", "Chapadinha", "Cidelândia", "Codó",
+        "Coelho Neto", "Colinas", "Conceição do Lago-Açu", "Coroatá", "Cururupu", "Davinópolis",
+        "Dom Pedro", "Duque Bacelar", "Esperantinópolis", "Estreito", "Feira Nova do Maranhão",
+        "Fernando Falcão", "Formosa da Serra Negra", "Fortaleza dos Nogueiras", "Fortuna",
+        "Godofredo Viana", "Gonçalves Dias", "Governador Archer", "Governador Edison Lobão",
+        "Governador Eugênio Barros", "Governador Luiz Rocha", "Governador Newton Bello",
+        "Governador Nunes Freire", "Graça Aranha", "Grajaú", "Guimarães", "Humberto de Campos",
+        "Icatu", "Igarapé do Meio", "Igarapé Grande", "Imperatriz", "Itaipava do Grajaú",
+        "Itapecuru Mirim", "Itinga do Maranhão", "Jatobá", "Jenipapo dos Vieiras", "João Lisboa",
+        "Joselândia", "Junco do Maranhão", "Lagoa do Mato", "Lago dos Rodrigues",
+        "Lago Verde", "Lagoa Grande do Maranhão", "Lajeado Novo", "Lima Campos", "Loreto",
+        "Luís Domingues", "Magalhães de Almeida", "Maracaçumé", "Marajá do Sena", "Maranhãozinho",
+        "Mata Roma", "Matinha", "Matões", "Matões do Norte", "Milagres do Maranhão",
+        "Mirador", "Miranda do Norte", "Mirinzal", "Monção", "Montes Altos", "Morros",
+        "Nina Rodrigues", "Nova Colinas", "Nova Iorque", "Nova Olinda do Maranhão",
+        "Olho d'Água das Cunhãs", "Olinda Nova do Maranhão", "Paço do Lumiar", "Palmeirândia",
+        "Paraibano", "Parnarama", "Passagem Franca", "Pastos Bons", "Paulino Neves", "Paulo Ramos",
+        "Pedreiras", "Pedro do Rosário", "Penalva", "Peri Mirim", "Peritoró", "Pindaré-Mirim",
+        "Pinheiro", "Pio XII", "Pirapemas", "Poção de Pedras", "Porto Franco", "Porto Rico do Maranhão",
+        "Presidente Dutra", "Presidente Juscelino", "Presidente Médici", "Presidente Sarney",
+        "Presidente Vargas", "Primeira Cruz", "Raposa", "Riachão", "Ribamar Fiquene",
+        "Rosário", "Sambaíba", "Santa Filomena do Maranhão", "Santa Helena", "Santa Inês",
+        "Santa Luzia", "Santa Luzia do Paruá", "Santa Quitéria do Maranhão", "Santa Rita",
+        "Santana do Maranhão", "Santo Amaro do Maranhão", "Santo Antônio dos Lopes",
+        "São Benedito do Rio Preto", "São Bento", "São Bernardo", "São Domingos do Azeitão",
+        "São Domingos do Maranhão", "São Félix de Balsas", "São Francisco do Brejão",
+        "São Francisco do Maranhão", "São João Batista", "São João do Carú", "São João do Paraíso",
+        "São João do Soter", "São João dos Patos", "São José de Ribamar", "São José dos Basílios",
+        "São Luís", "São Luís Gonzaga do Maranhão", "São Mateus do Maranhão",
+        "São Pedro da Água Branca", "São Pedro dos Crentes", "São Raimundo das Mangabeiras",
+        "São Raimundo do Doca Bezerra", "São Roberto", "São Vicente Ferrer", "Satubinha",
+        "Senador Alexandre Costa", "Senador La Rocque", "Serrano do Maranhão", "Sítio Novo",
+        "Sucupira do Norte", "Sucupira do Riachão", "Tasso Fragoso", "Timbiras", "Timon",
+        "Trizidela do Vale", "Tufilândia", "Tuntum", "Turiaçu", "Turilândia", "Tutóia", "Urbano Santos",
+        "Vargem Grande", "Viana", "Vila Nova dos Martírios", "Vitória do Mearim", "Vitorino Freire",
+        "Zé Doca"
+    ]
 }
 
 CONCESSIONARIAS = [
     {"nome": "Equatorial Piauí", "uf": "PI", "te": 0.36, "tusd": 0.42, "fio_b": 0.24, "custo_disponibilidade_mono": 30, "custo_disponibilidade_bi": 50, "custo_disponibilidade_tri": 100},
     {"nome": "Equatorial Maranhão", "uf": "MA", "te": 0.35, "tusd": 0.41, "fio_b": 0.23, "custo_disponibilidade_mono": 30, "custo_disponibilidade_bi": 50, "custo_disponibilidade_tri": 100},
-    {"nome": "Neoenergia Pernambuco", "uf": "PE", "te": 0.37, "tusd": 0.43, "fio_b": 0.25, "custo_disponibilidade_mono": 30, "custo_disponibilidade_bi": 50, "custo_disponibilidade_tri": 100},
-    {"nome": "Neoenergia Coelba", "uf": "BA", "te": 0.36, "tusd": 0.42, "fio_b": 0.24, "custo_disponibilidade_mono": 30, "custo_disponibilidade_bi": 50, "custo_disponibilidade_tri": 100},
-    {"nome": "Enel Ceará", "uf": "CE", "te": 0.37, "tusd": 0.44, "fio_b": 0.25, "custo_disponibilidade_mono": 30, "custo_disponibilidade_bi": 50, "custo_disponibilidade_tri": 100},
 ]
 
 ICMS_POR_UF = {
     "PI": 0.22,
     "MA": 0.22,
-    "PE": 0.20,
-    "BA": 0.20,
-    "CE": 0.20,
 }
 
 MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
@@ -85,7 +170,6 @@ COR_TEXTO = HexColor("#374151")
 COR_CLARA = HexColor("#f8fafc")
 COR_CAIXA = HexColor("#f1f5f9")
 COR_LINHA = HexColor("#cbd5e1")
-COR_AZUL = HexColor("#0f172a")
 COR_VERMELHO = COR_PRINCIPAL_HEX
 COR_VERMELHO_ESCURO = "#8f1d22"
 COR_VERMELHO_CLARO = HexColor("#fff1f2")
@@ -97,12 +181,22 @@ COR_LARANJA_DESTAQUE = COR_PRINCIPAL
 # FUNÇÕES GERAIS
 # =========================================================
 
+def normalizar_texto(txt):
+    if not txt:
+        return ""
+    txt = unicodedata.normalize("NFKD", str(txt))
+    txt = "".join(ch for ch in txt if not unicodedata.combining(ch))
+    return txt.strip().lower()
+
+
+@st.cache_data
 def obter_ufs():
-    return sorted({uf for (uf, _) in IRRADIACAO_CIDADES.keys()})
+    return sorted(CIDADES_POR_UF.keys())
 
 
+@st.cache_data
 def obter_cidades_por_uf(uf):
-    return sorted([cidade for (uf_base, cidade) in IRRADIACAO_CIDADES.keys() if uf_base == uf])
+    return sorted(CIDADES_POR_UF.get(uf, []))
 
 
 def obter_concessionarias_por_uf(uf):
@@ -271,6 +365,100 @@ def linhas_produtos(dados):
     return lista
 
 
+def obter_irradiacao_cidade(uf, cidade):
+    cidade_norm = normalizar_texto(cidade)
+
+    mapa_pi = {
+        "parnaiba": "Parnaíba",
+        "luis correia": "Parnaíba",
+        "ilha grande": "Parnaíba",
+        "cajueiro da praia": "Parnaíba",
+        "buriti dos lopes": "Parnaíba",
+        "cocal": "Parnaíba",
+        "cocal dos alves": "Parnaíba",
+        "piracuruca": "Parnaíba",
+        "piripiri": "Parnaíba",
+        "barras": "Parnaíba",
+        "esperantina": "Parnaíba",
+        "batalha": "Parnaíba",
+        "campo maior": "Teresina",
+        "altos": "Teresina",
+        "demerval lobao": "Teresina",
+        "jose de freitas": "Teresina",
+        "uniao": "Teresina",
+        "agua branca": "Teresina",
+        "amarante": "Teresina",
+        "monsenhor gil": "Teresina",
+        "nazaria": "Teresina",
+        "teresina": "Teresina",
+        "picos": "Picos",
+        "geminiano": "Picos",
+        "itainopolis": "Picos",
+        "sussuapara": "Picos",
+        "paqueta": "Picos",
+        "francisco santos": "Picos",
+        "jaicos": "Picos",
+        "dom expedito lopes": "Picos",
+        "inhuma": "Picos",
+        "ipiranga do piaui": "Picos",
+        "oeiras": "Picos",
+        "floriano": "Picos",
+        "bom jesus": "Picos",
+        "urucui": "Picos",
+        "corrente": "Picos",
+        "sao raimundo nonato": "Picos",
+        "paulistana": "Picos",
+        "pio ix": "Picos",
+        "fronteiras": "Picos",
+        "simplicio mendes": "Picos",
+        "valenca do piaui": "Picos",
+    }
+
+    mapa_ma = {
+        "sao luis": "São Luís",
+        "sao jose de ribamar": "São Luís",
+        "paco do lumiar": "São Luís",
+        "raposa": "São Luís",
+        "rosario": "São Luís",
+        "icatu": "São Luís",
+        "morros": "São Luís",
+        "humberto de campos": "São Luís",
+        "barreirinhas": "São Luís",
+        "chapadinha": "São Luís",
+        "santa ines": "Caxias",
+        "bacabal": "Caxias",
+        "coroata": "Caxias",
+        "timbiras": "Caxias",
+        "codo": "Caxias",
+        "coelho neto": "Caxias",
+        "caxias": "Caxias",
+        "timon": "Timon",
+        "parnarama": "Timon",
+        "matoes": "Timon",
+        "imperatriz": "Imperatriz",
+        "acailandia": "Imperatriz",
+        "joao lisboa": "Imperatriz",
+        "porto franco": "Imperatriz",
+        "estreito": "Imperatriz",
+        "amarante do maranhao": "Imperatriz",
+        "balsas": "Balsas",
+        "tasso fragoso": "Balsas",
+        "alto parnaiba": "Balsas",
+        "riachao": "Balsas",
+        "sao raimundo das mangabeiras": "Balsas",
+    }
+
+    if uf == "PI":
+        cidade_ref = mapa_pi.get(cidade_norm, "Teresina")
+        return IRRADIACAO_REFERENCIA[("PI", cidade_ref)]
+
+    if uf == "MA":
+        cidade_ref = mapa_ma.get(cidade_norm, "São Luís")
+        return IRRADIACAO_REFERENCIA[("MA", cidade_ref)]
+
+    raise ValueError(f"UF não suportada: {uf}")
+
+
 # =========================================================
 # GRÁFICOS
 # =========================================================
@@ -287,7 +475,6 @@ def gerar_imagem_grafico_geracao(df_geracao):
 
     ax.set_title("Geração estimada por mês", fontsize=14, fontweight="bold", pad=10)
     ax.set_ylabel("kWh", fontsize=10)
-
     ax.grid(axis="y", linestyle="--", alpha=0.25)
 
     ax.spines["top"].set_visible(False)
@@ -368,12 +555,15 @@ def desenhar_titulo_pagina(c, titulo):
     c.drawString(45, 800, titulo)
 
 
-def desenhar_rodape(c):
+def desenhar_rodape(c, pagina=None, total_paginas=None):
     c.setStrokeColor(COR_LINHA)
     c.line(40, 35, 555, 35)
     c.setFont("Helvetica", 9)
     c.setFillColor(HexColor("#64748b"))
     c.drawString(40, 20, "RPO Serviços - Proposta Comercial")
+
+    if pagina is not None and total_paginas is not None:
+        c.drawRightString(555, 20, f"Página {pagina} de {total_paginas}")
 
 
 def desenhar_bloco_titulo_texto(c, titulo, linhas, x, y_inicial):
@@ -392,7 +582,7 @@ def desenhar_bloco_titulo_texto(c, titulo, linhas, x, y_inicial):
     return y
 
 
-def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer):
+def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagina, total_paginas):
     fundo = COR_CLARA
     vermelho = COR_PRINCIPAL
     vermelho_claro = COR_VERMELHO_CLARO
@@ -456,7 +646,6 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer):
     c.setFont("Helvetica-Bold", 13)
     c.setFillColor(COR_LARANJA_DESTAQUE)
     c.drawString(50, y_base, "GARANTIAS DO SISTEMA")
-
     c.setFillColor(COR_LARANJA_DESTAQUE)
     c.rect(50, y_base - 6, 490, 2, fill=1, stroke=0)
 
@@ -485,7 +674,6 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer):
     c.setFont("Helvetica-Bold", 13)
     c.setFillColor(COR_LARANJA_DESTAQUE)
     c.drawString(50, y, "PRAZO DE INSTALAÇÃO")
-
     c.rect(50, y - 6, 490, 2, fill=1, stroke=0)
 
     texto4 = (
@@ -494,6 +682,7 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer):
     )
 
     desenhar_texto_quebrado(c, texto4, 50, y - 22, 480)
+    desenhar_rodape(c, pagina, total_paginas)
 
 
 # =========================================================
@@ -504,6 +693,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=A4)
     largura, altura = A4
+    total_paginas = 6
 
     # PÁGINA 1 - CAPA
     try:
@@ -514,6 +704,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         c.drawRightString(530, 83, texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE")
     except Exception:
         desenhar_capa_fallback(c, largura, altura, dados["nome_cliente"])
+    desenhar_rodape(c, 1, total_paginas)
     c.showPage()
 
     # PÁGINA 2 - SOBRE A EMPRESA
@@ -586,7 +777,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         y_blocos
     )
 
-    desenhar_rodape(c)
+    desenhar_rodape(c, 2, total_paginas)
     c.showPage()
 
     # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
@@ -621,11 +812,11 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         c.setFillColor(COR_TEXTO)
         c.drawString(50, 700, "Confira se o arquivo solar.png está na mesma pasta do app.py")
 
-    desenhar_rodape(c)
+    desenhar_rodape(c, 3, total_paginas)
     c.showPage()
 
     # PÁGINA 4 - PRODUÇÃO
-    desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer)
+    desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, 4, total_paginas)
     c.showPage()
 
     # PÁGINA 5 - PRODUTOS
@@ -676,7 +867,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.setFillColor(COR_PRINCIPAL)
     c.drawString(338, 337, formatar_moeda(dados["valor_proposta"]))
 
-    desenhar_rodape(c)
+    desenhar_rodape(c, 5, total_paginas)
     c.showPage()
 
     # PÁGINA 6 - ACEITE
@@ -738,7 +929,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.drawCentredString(410, 80, nome_ass)
     c.drawCentredString(410, 66, cpf_ass)
 
-    desenhar_rodape(c)
+    desenhar_rodape(c, 6, total_paginas)
     c.save()
     buffer.seek(0)
     return buffer
@@ -829,7 +1020,7 @@ with col2:
 
 
 if st.button("Calcular proposta", use_container_width=True):
-    irradiacao_cidade = IRRADIACAO_CIDADES[(uf, cidade)]
+    irradiacao_cidade = obter_irradiacao_cidade(uf, cidade)
     irradiacao_media = media_irradiacao_anual(irradiacao_cidade)
 
     conc = buscar_concessionaria(concessionaria_nome)
