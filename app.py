@@ -638,7 +638,7 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
 
     c.setFont("Helvetica-Bold", 11)
     c.setFillColor(vermelho)
-    c.drawString(315, 730, "Geração anual")
+    c.drawString(315, 730, "Geração anual estimada")
 
     prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 20)
