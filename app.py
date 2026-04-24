@@ -189,12 +189,10 @@ def normalizar_texto(txt):
     return txt.strip().lower()
 
 
-@st.cache_data
 def obter_ufs():
     return sorted(CIDADES_POR_UF.keys())
 
 
-@st.cache_data
 def obter_cidades_por_uf(uf):
     return sorted(CIDADES_POR_UF.get(uf, []))
 
@@ -332,6 +330,27 @@ def desenhar_texto_quebrado(c, texto, x, y, largura_max, font_name="Helvetica", 
         y_atual -= espacamento
 
     return y_atual
+
+
+def desenhar_secao_titulo(c, titulo, x, y):
+    c.setFont("Helvetica-Bold", 12)
+    c.setFillColor(COR_PRINCIPAL)
+    c.drawString(x, y, titulo)
+    return y - 16
+
+
+def desenhar_paragrafo_pdf(c, texto, x, y, largura=495, tamanho=10, espacamento=14):
+    return desenhar_texto_quebrado(
+        c,
+        texto,
+        x,
+        y,
+        largura,
+        font_name="Helvetica",
+        font_size=tamanho,
+        cor=COR_TEXTO,
+        espacamento=espacamento,
+    )
 
 
 def linhas_produtos(dados):
@@ -602,86 +621,56 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     c.setFillColor(white)
     c.roundRect(30, 60, largura - 60, altura - 130, 18, fill=1, stroke=0)
 
-    nome = dados["nome_cliente"] or "-"
-    c.setFont("Helvetica-Bold", 18)
-    c.setFillColor(azul_texto)
-    c.drawString(50, 735, nome)
-
-    c.setFont("Helvetica", 11)
-    c.setFillColor(cinza)
-    c.drawString(50, 715, f"{dados['cidade']}/{dados['uf']}")
-
     c.setFillColor(vermelho_claro)
-    c.roundRect(50, 650, 210, 65, 12, fill=1, stroke=0)
+    c.roundRect(50, 690, 220, 68, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 11)
     c.setFillColor(vermelho)
-    c.drawString(65, 690, "Produção média")
+    c.drawString(65, 730, "Produção média")
 
     prod_media = f"{dados['geracao_media']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 20)
     c.setFillColor(azul_texto)
-    c.drawString(65, 665, f"{prod_media} kWh/mês")
+    c.drawString(65, 705, f"{prod_media} kWh/mês")
+
+    c.setFillColor(HexColor("#eff6ff"))
+    c.roundRect(300, 690, 220, 68, 12, fill=1, stroke=0)
+
+    c.setFont("Helvetica-Bold", 11)
+    c.setFillColor(HexColor("#1d4ed8"))
+    c.drawString(315, 730, "Geração anual")
+
+    prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
+    c.setFont("Helvetica-Bold", 20)
+    c.setFillColor(azul_texto)
+    c.drawString(315, 705, f"{prod_anual} kWh/ano")
 
     c.setFont("Helvetica-Bold", 17)
     c.setFillColor(vermelho)
-    c.drawCentredString(largura / 2, 615, "Geração mensal do sistema")
+    c.drawCentredString(largura / 2, 650, "Geração mensal do sistema")
 
     c.setFont("Helvetica", 10)
     c.setFillColor(cinza)
-    c.drawCentredString(largura / 2, 598, "Estimativa média de produção ao longo dos meses")
+    c.drawCentredString(largura / 2, 633, "Estimativa média de produção ao longo dos meses")
 
     c.drawImage(
         ImageReader(img_geracao_buffer),
         50,
-        310,
+        300,
         width=490,
-        height=260,
+        height=290,
         preserveAspectRatio=True,
         mask='auto'
     )
 
-    y_base = 270
+    c.setFont("Helvetica", 10.5)
+    c.setFillColor(COR_TEXTO)
+    c.drawString(50, 255, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
+    c.drawString(50, 240, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
 
-    c.setFont("Helvetica-Bold", 13)
-    c.setFillColor(COR_LARANJA_DESTAQUE)
-    c.drawString(50, y_base, "GARANTIAS DO SISTEMA")
-    c.setFillColor(COR_LARANJA_DESTAQUE)
-    c.rect(50, y_base - 6, 490, 2, fill=1, stroke=0)
+    c.drawString(50, 210, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
+    c.drawString(50, 174, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
 
-    texto1 = (
-        "Os módulos fotovoltaicos foram projetados para oferecer desempenho duradouro, "
-        "com garantia de performance de até 25 anos, assegurando no mínimo 80% da capacidade "
-        "original de geração ao longo do período."
-    )
-
-    texto2 = (
-        "Os módulos solares contam com 12 anos de garantia contra defeitos de fabricação, "
-        "conforme as condições fornecidas pelo fabricante."
-    )
-
-    texto3 = (
-        "O inversor possui 10 anos de garantia contra defeitos de fabricação, proporcionando "
-        "mais segurança e confiabilidade ao sistema instalado."
-    )
-
-    y = desenhar_texto_quebrado(c, texto1, 50, y_base - 22, 480)
-    y = desenhar_texto_quebrado(c, texto2, 50, y - 5, 480)
-    y = desenhar_texto_quebrado(c, texto3, 50, y - 5, 480)
-
-    y -= 15
-
-    c.setFont("Helvetica-Bold", 13)
-    c.setFillColor(COR_LARANJA_DESTAQUE)
-    c.drawString(50, y, "PRAZO DE INSTALAÇÃO")
-    c.rect(50, y - 6, 490, 2, fill=1, stroke=0)
-
-    texto4 = (
-        "A instalação do sistema poderá ser concluída em até 60 dias após a confirmação "
-        "do pagamento, seguindo o planejamento técnico do projeto."
-    )
-
-    desenhar_texto_quebrado(c, texto4, 50, y - 22, 480)
     desenhar_rodape(c, pagina, total_paginas)
 
 
@@ -693,7 +682,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=A4)
     largura, altura = A4
-    total_paginas = 6
+    total_paginas = 8
 
     # PÁGINA 1 - CAPA
     try:
@@ -780,7 +769,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_rodape(c, 2, total_paginas)
     c.showPage()
 
-    # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
+        # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
 
@@ -790,36 +779,209 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     try:
         img_funcionamento = ImageReader("solar.png")
-        area_x = 40
-        area_y = 70
-        area_w = largura - 80
-        area_h = altura - 170
-
         c.drawImage(
             img_funcionamento,
-            area_x,
-            area_y,
-            width=area_w,
-            height=area_h,
+            45,
+            400,
+            width=505,
+            height=300,
             preserveAspectRatio=True,
             mask='auto'
         )
     except Exception:
         c.setFont("Helvetica-Bold", 12)
         c.setFillColor(COR_PRINCIPAL)
-        c.drawString(50, 720, "Não foi possível carregar a imagem solar.png")
-        c.setFont("Helvetica", 10)
-        c.setFillColor(COR_TEXTO)
-        c.drawString(50, 700, "Confira se o arquivo solar.png está na mesma pasta do app.py")
+        c.drawString(50, 720, "Imagem solar.png não encontrada")
+
+    y = 370
+
+    def titulo_funcionamento(txt, y):
+        c.setFont("Helvetica-Bold", 11)
+        c.setFillColor(COR_PRINCIPAL)
+        c.drawString(50, y, txt)
+        c.setStrokeColor(COR_PRINCIPAL)
+        c.setLineWidth(1)
+        c.line(50, y - 3, 545, y - 3)
+        return y - 16
+
+    y = titulo_funcionamento("1. PAINÉIS SOLARES", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Captam a luz do sol e a transformam em energia elétrica (em corrente contínua).",
+        50,
+        y
+    )
+    y -= 10
+
+    y = titulo_funcionamento("2. INVERSOR", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "O inversor converte a energia de corrente contínua (CC) dos painéis em corrente alternada (CA), que pode ser usada na casa.",
+        50,
+        y
+    )
+    y -= 10
+
+    y = titulo_funcionamento("3. QUADRO DE LUZ", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A energia já em corrente alternada é distribuída pelo quadro de luz para os circuitos da casa.",
+        50,
+        y
+    )
+    y -= 10
+
+    y = titulo_funcionamento("4. CONSUMO NA RESIDÊNCIA", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A energia produzida abastece os aparelhos e equipamentos da casa: lâmpadas, geladeira, máquina de lavar, chuveiro, tomadas, etc.",
+        50,
+        y
+    )
+    y -= 10
+
+    y = titulo_funcionamento("5. REDE ELÉTRICA", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Se a produção dos painéis for maior que o consumo, o excesso de energia é enviado para a rede elétrica.",
+        50,
+        y
+    )
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Se for menor, a energia necessária é complementada pela rede.",
+        50,
+        y - 2
+    )
 
     desenhar_rodape(c, 3, total_paginas)
     c.showPage()
 
-    # PÁGINA 4 - PRODUÇÃO
-    desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, 4, total_paginas)
+    # PÁGINA 4 - PROCESSO DOS SERVIÇOS
+    desenhar_fundo_padrao(c, largura, altura)
+    desenhar_titulo_pagina(c, "Etapas do Projeto")
+
+    y = 760
+
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A empresa oferece uma solução completa em sistemas de energia solar fotovoltaica, "
+        "contemplando todas as etapas necessárias para a correta implantação e funcionamento do sistema.",
+        50, y, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Vistoria Técnica", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Realização de análise técnica no local, com o objetivo de verificar as condições de instalação, "
+        "incluindo estrutura, área disponível e incidência solar.",
+        50, y, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Elaboração do projeto técnico por equipe de engenharia especializada, bem como a execução completa "
+        "da instalação do sistema fotovoltaico, em conformidade com as normas técnicas e padrões de segurança.",
+        50, y, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Homologação do Projeto", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Responsabilidade pelo protocolo e acompanhamento do processo de aprovação junto à concessionária "
+        "de energia, como por exemplo a Equatorial Energia.",
+        50, y, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Ativação do Sistema", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Após a conclusão da instalação, é realizada a solicitação junto à concessionária para os procedimentos "
+        "necessários à conexão do sistema, incluindo a substituição do medidor convencional por medidor "
+        "bidirecional e liberação para operação.",
+        50, y, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Acompanhamento e Garantia", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A empresa realizará o acompanhamento do funcionamento do sistema pelo período de 12 (doze) meses, "
+        "correspondente à garantia da instalação, assegurando o correto desempenho e prestando suporte técnico "
+        "quando necessário.",
+        50, y, largura=490
+    )
+
+    desenhar_rodape(c, 4, total_paginas)
     c.showPage()
 
-    # PÁGINA 5 - PRODUTOS
+    # PÁGINA 5 - PRODUÇÃO
+    desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, 5, total_paginas)
+    c.showPage()
+
+    # PÁGINA 6 - GARANTIAS E CONDIÇÕES
+    desenhar_fundo_padrao(c, largura, altura)
+    desenhar_titulo_pagina(c, "Garantias e condições")
+
+    y = 760
+
+    y = desenhar_secao_titulo(c, "Garantias do sistema", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Os módulos fotovoltaicos foram projetados para oferecer desempenho duradouro, com garantia de "
+        "performance de até 25 anos, assegurando no mínimo 80% da capacidade original de geração ao longo do período.",
+        50, y, largura=490
+    )
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Os módulos solares contam com 12 anos de garantia contra defeitos de fabricação, conforme as condições "
+        "fornecidas pelo fabricante.",
+        50, y - 4, largura=490
+    )
+    y = desenhar_paragrafo_pdf(
+        c,
+        "O inversor possui 10 anos de garantia contra defeitos de fabricação, proporcionando mais segurança e "
+        "confiabilidade ao sistema instalado.",
+        50, y - 4, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Prazo de instalação", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A instalação do sistema poderá ser concluída em até 60 dias após a confirmação do pagamento, "
+        "seguindo o planejamento técnico do projeto.",
+        50, y, largura=490
+    )
+    y -= 12
+
+    y = desenhar_secao_titulo(c, "Observações importantes", 50, y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "• O prazo para análise e aprovação do projeto é de responsabilidade exclusiva da concessionária de energia.",
+        50, y, largura=490
+    )
+    y = desenhar_paragrafo_pdf(
+        c,
+        "• A substituição do medidor por modelo bidirecional é realizada pela concessionária, mediante solicitação.",
+        50, y - 2, largura=490
+    )
+    y = desenhar_paragrafo_pdf(
+        c,
+        "• O padrão de entrada da unidade consumidora deverá estar em conformidade com as exigências da "
+        "concessionária, sendo condição indispensável para aprovação e conexão do sistema.",
+        50, y - 2, largura=490
+    )
+
+    desenhar_rodape(c, 6, total_paginas)
+    c.showPage()
+
+    # PÁGINA 7 - PRODUTOS
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Os produtos")
 
@@ -867,10 +1029,10 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.setFillColor(COR_PRINCIPAL)
     c.drawString(338, 337, formatar_moeda(dados["valor_proposta"]))
 
-    desenhar_rodape(c, 5, total_paginas)
+    desenhar_rodape(c, 7, total_paginas)
     c.showPage()
 
-    # PÁGINA 6 - ACEITE
+    # PÁGINA 8 - ACEITE
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Aceite da proposta")
 
@@ -929,7 +1091,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.drawCentredString(410, 80, nome_ass)
     c.drawCentredString(410, 66, cpf_ass)
 
-    desenhar_rodape(c, 6, total_paginas)
+    desenhar_rodape(c, 8, total_paginas)
     c.save()
     buffer.seek(0)
     return buffer
