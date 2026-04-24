@@ -633,16 +633,16 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     c.setFillColor(azul_texto)
     c.drawString(65, 705, f"{prod_media} kWh/mês")
 
-    c.setFillColor(HexColor("#eff6ff"))
+    c.setFillColor(HexColor("#fce7e7"))
     c.roundRect(300, 690, 220, 68, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 11)
-    c.setFillColor(HexColor("#1d4ed8"))
+    c.setFillColor(vermelho)
     c.drawString(315, 730, "Geração anual")
 
     prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 20)
-    c.setFillColor(azul_texto)
+    c.setFillColor(HexColor("#111827"))
     c.drawString(315, 705, f"{prod_anual} kWh/ano")
 
     c.setFont("Helvetica-Bold", 17)
