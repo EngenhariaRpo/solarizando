@@ -617,7 +617,7 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     c.roundRect(30, 60, largura - 60, altura - 170, 18, fill=1, stroke=0)
 
     c.setFillColor(vermelho_claro)
-    c.roundRect(50, 650, 220, 68, 12, fill=1, stroke=0)
+    c.roundRect(50, 730, 220, 68, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 11)
     c.setFillColor(vermelho)
