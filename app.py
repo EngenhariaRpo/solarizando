@@ -800,7 +800,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = desenhar_paragrafo_pdf(
         c,
         "Responsabilidade pelo protocolo e acompanhamento do processo de aprovação junto à concessionária "
-        "de energia, como por exemplo a Equatorial Energia.",
+        "de energia.",
         50, y, largura=490
     )
     y -= 8
