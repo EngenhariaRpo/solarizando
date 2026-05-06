@@ -857,29 +857,29 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_rodape(c, 3, total_paginas)
     c.showPage()
 
-    # PÁGINA 4 - PROCESSO DOS SERVIÇOS
+        # PÁGINA 4 - PROCESSO DOS SERVIÇOS
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Etapas do Projeto")
 
-y = 730
+    y = 730
 
-y = desenhar_secao_titulo(c, "Vistoria Técnica", 50, y)
-y = desenhar_paragrafo_pdf(
+    y = desenhar_secao_titulo(c, "Vistoria Técnica", 50, y)
+    y = desenhar_paragrafo_pdf(
         c,
         "Realização de análise técnica no local, com o objetivo de verificar as condições de instalação, "
         "incluindo estrutura, área disponível e incidência solar.",
         50, y, largura=490
-)
-y -= 8
+    )
+    y -= 8
 
-y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
-y = desenhar_paragrafo_pdf(
+    y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
+    y = desenhar_paragrafo_pdf(
         c,
         "Elaboração do projeto técnico por equipe de engenharia especializada, bem como a execução completa "
         "da instalação do sistema fotovoltaico, em conformidade com as normas técnicas e padrões de segurança.",
         50, y, largura=490
     )
-    y -= 12
+    y -= 8
 
     y = desenhar_secao_titulo(c, "Homologação do Projeto", 50, y)
     y = desenhar_paragrafo_pdf(
@@ -888,7 +888,7 @@ y = desenhar_paragrafo_pdf(
         "de energia, como por exemplo a Equatorial Energia.",
         50, y, largura=490
     )
-    y -= 12
+    y -= 8
 
     y = desenhar_secao_titulo(c, "Ativação do Sistema", 50, y)
     y = desenhar_paragrafo_pdf(
@@ -898,7 +898,7 @@ y = desenhar_paragrafo_pdf(
         "bidirecional e liberação para operação.",
         50, y, largura=490
     )
-    y -= 12
+    y -= 8
 
     y = desenhar_secao_titulo(c, "Acompanhamento e Garantia", 50, y)
     y = desenhar_paragrafo_pdf(
@@ -911,7 +911,7 @@ y = desenhar_paragrafo_pdf(
 
     desenhar_rodape(c, 4, total_paginas)
     c.showPage()
-
+    
     # PÁGINA 5 - PRODUÇÃO
     desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, 5, total_paginas)
     c.showPage()
