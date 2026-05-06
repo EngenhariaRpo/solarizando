@@ -782,7 +782,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         c.drawImage(
             img_funcionamento,
             45,
-            400,
+            440,
             width=505,
             height=300,
             preserveAspectRatio=True,
