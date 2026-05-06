@@ -699,7 +699,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "RPO SERVIÇOS")
 
-    y_blocos = 760
+    y_blocos = 735
 
     y_blocos = desenhar_bloco_titulo_texto(
         c,
