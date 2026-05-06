@@ -870,10 +870,10 @@ y = desenhar_paragrafo_pdf(
         "incluindo estrutura, área disponível e incidência solar.",
         50, y, largura=490
 )
-y -= 12
+y -= 8
 
 y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
-    y = desenhar_paragrafo_pdf(
+y = desenhar_paragrafo_pdf(
         c,
         "Elaboração do projeto técnico por equipe de engenharia especializada, bem como a execução completa "
         "da instalação do sistema fotovoltaico, em conformidade com as normas técnicas e padrões de segurança.",
