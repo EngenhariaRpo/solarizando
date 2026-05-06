@@ -861,18 +861,10 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Etapas do Projeto")
 
-    y = 760
+y = 730
 
-    y = desenhar_paragrafo_pdf(
-        c,
-        "A empresa oferece uma solução completa em sistemas de energia solar fotovoltaica, "
-        "contemplando todas as etapas necessárias para a correta implantação e funcionamento do sistema.",
-        50, y, largura=490
-    )
-    y -= 12
-
-    y = desenhar_secao_titulo(c, "Vistoria Técnica", 50, y)
-    y = desenhar_paragrafo_pdf(
+y = desenhar_secao_titulo(c, "Vistoria Técnica", 50, y)
+y = desenhar_paragrafo_pdf(
         c,
         "Realização de análise técnica no local, com o objetivo de verificar as condições de instalação, "
         "incluindo estrutura, área disponível e incidência solar.",
