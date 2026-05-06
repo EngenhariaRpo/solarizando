@@ -869,8 +869,8 @@ y = desenhar_paragrafo_pdf(
         "Realização de análise técnica no local, com o objetivo de verificar as condições de instalação, "
         "incluindo estrutura, área disponível e incidência solar.",
         50, y, largura=490
-    )
-    y -= 12
+)
+y -= 12
 
     y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
     y = desenhar_paragrafo_pdf(
