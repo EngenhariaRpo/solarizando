@@ -608,16 +608,11 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     azul_texto = HexColor("#1f2937")
     cinza = COR_CINZA_TEXTO
 
-    c.setFillColor(fundo)
-    c.rect(0, 0, largura, altura, fill=1, stroke=0)
+    desenhar_fundo_padrao(c, largura, altura)
 
-    c.setFillColor(vermelho)
-    c.rect(0, altura - 80, largura, 80, fill=1, stroke=0)
-
-    c.setFont("Helvetica-Bold", 22)
-    c.setFillColor(white)
-    c.drawString(40, 805, "Produção do sistema")
-
+    c.setFont("Helvetica-Bold", 19)
+    c.setFillColor(COR_PRINCIPAL)
+    c.drawString(45, 800, "Produção do sistema")
     c.setFillColor(white)
     c.roundRect(30, 60, largura - 60, altura - 130, 18, fill=1, stroke=0)
 
