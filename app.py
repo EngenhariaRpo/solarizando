@@ -872,7 +872,7 @@ y = desenhar_paragrafo_pdf(
 )
 y -= 12
 
-    y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
+y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
     y = desenhar_paragrafo_pdf(
         c,
         "Elaboração do projeto técnico por equipe de engenharia especializada, bem como a execução completa "
