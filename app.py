@@ -697,23 +697,23 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.showPage()
 
     # PÁGINA 2 - SOBRE A EMPRESA
-    desenhar_fundo_padrao(c, largura, altura)
+        desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "RPO SERVIÇOS")
 
     y_blocos = 760
 
-y_blocos = desenhar_bloco_titulo_texto(
-    c,
-    "Sobre a empresa",
-    [
-        "A RPO Serviços atua na elaboração de projetos e execução de instalações elétricas,",
-        "sistemas fotovoltaicos, consultorias em eficiência energética e manutenções."
-    ],
-    50,
-    y_blocos
-)
+    y_blocos = desenhar_bloco_titulo_texto(
+        c,
+        "Sobre a empresa",
+        [
+            "A RPO Serviços atua na elaboração de projetos e execução de instalações elétricas,",
+            "sistemas fotovoltaicos, consultorias em eficiência energética e manutenções."
+        ],
+        50,
+        y_blocos
+    )
 
-y_blocos -= 20
+    y_blocos -= 20
 
     y_blocos = desenhar_bloco_titulo_texto(
         c,
