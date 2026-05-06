@@ -920,7 +920,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Garantias e condições")
 
-    y = 760
+    y = 720
 
     y = desenhar_secao_titulo(c, "Garantias do sistema", 50, y)
     y = desenhar_paragrafo_pdf(
