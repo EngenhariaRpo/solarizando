@@ -957,7 +957,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     c.setStrokeColor(HexColor("#2c2c2c"))
     c.setLineWidth(1)
-    c.rect(35, 145, 495, 500, fill=0, stroke=1)
+    c.rect(35, 175, 495, 470, fill=0, stroke=1)
 
     campos = [
         "Nome do cliente:",
@@ -970,7 +970,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         "Telefone:",
     ]
 
-    y = 590
+    y = 605
     for campo in campos:
         c.setFont("Helvetica", 10.5)
         c.setFillColor(COR_PRINCIPAL)
@@ -985,7 +985,9 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
+    
     c.drawCentredString(155, 80, "RPO SERVIÇOS")
+    c.drawCentredString(155, 66, "CNPJ")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
     cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
