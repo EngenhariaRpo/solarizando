@@ -990,7 +990,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.drawCentredString(155, 66, "CNPJ: 46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
-    cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
+    cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF:CPF"
 
     c.drawCentredString(410, 80, nome_ass)
     c.drawCentredString(410, 66, cpf_ass)
