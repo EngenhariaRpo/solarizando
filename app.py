@@ -970,58 +970,92 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, 5, total_paginas)
     c.showPage()
 
-    # PÁGINA 6 - GARANTIAS E CONDIÇÕES
+        # PÁGINA 6 - GARANTIAS E CONDIÇÕES
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Garantias e condições")
 
     y = 735
+    x_texto = 50
+    largura_texto = 490
 
-    y = desenhar_secao_titulo(c, "Garantias do sistema", 45, y)
+    y = desenhar_secao_titulo(c, "Garantias do sistema", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "Os módulos fotovoltaicos foram projetados para oferecer desempenho duradouro, com garantia de "
-        "performance de até 25 anos, assegurando no mínimo 80% da capacidade original de geração ao longo do período.",
-        45, y, largura=490
+        "performance de até 25 anos, assegurando no mínimo 80% da capacidade original de geração ao longo "
+        "do período.",
+        x_texto,
+        y,
+        largura=largura_texto
     )
-    y = desenhar_paragrafo_pdf(
-        c,
-        "Os módulos solares contam com 12 anos de garantia contra defeitos de fabricação, conforme as condições "
-        "fornecidas pelo fabricante.",
-        45, y - 4, largura=490
-    )
-    y = desenhar_paragrafo_pdf(
-        c,
-        "O inversor possui 10 anos de garantia contra defeitos de fabricação, proporcionando mais segurança e "
-        "confiabilidade ao sistema instalado.",
-        45, y - 4, largura=490
-    )
-    y -= 12
 
-    y = desenhar_secao_titulo(c, "Prazo de instalação", 45, y)
+    y -= 6
+
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Os módulos solares contam com 12 anos de garantia contra defeitos de fabricação, conforme as "
+        "condições fornecidas pelo fabricante.",
+        x_texto,
+        y,
+        largura=largura_texto
+    )
+
+    y -= 6
+
+    y = desenhar_paragrafo_pdf(
+        c,
+        "O inversor possui 10 anos de garantia contra defeitos de fabricação, proporcionando mais segurança "
+        "e confiabilidade ao sistema instalado.",
+        x_texto,
+        y,
+        largura=largura_texto
+    )
+
+    y -= 14
+
+    y = desenhar_secao_titulo(c, "Prazo de instalação", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "A instalação do sistema poderá ser concluída em até 60 dias após a confirmação do pagamento, "
         "seguindo o planejamento técnico do projeto.",
-        45, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
-    y -= 12
 
-    y = desenhar_secao_titulo(c, "Observações importantes", 45, y)
+    y -= 14
+
+    y = desenhar_secao_titulo(c, "Observações importantes", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "• O prazo para análise e aprovação do projeto é de responsabilidade exclusiva da concessionária de energia.",
-        45, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
+
+    y -= 2
+
     y = desenhar_paragrafo_pdf(
         c,
         "• A substituição do medidor por modelo bidirecional é realizada pela concessionária, mediante solicitação.",
-        45, y - 2, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
+
+    y -= 2
+
     y = desenhar_paragrafo_pdf(
         c,
         "• O padrão de entrada da unidade consumidora deverá estar em conformidade com as exigências da "
         "concessionária, sendo condição indispensável para aprovação e conexão do sistema.",
-        45, y - 2, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
 
     desenhar_rodape(c, 6, total_paginas)
