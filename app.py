@@ -602,69 +602,71 @@ def desenhar_bloco_titulo_texto(c, titulo, linhas, x, y_inicial):
 
 
 def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagina, total_paginas):
-    fundo = COR_CLARA
     vermelho = COR_PRINCIPAL
     vermelho_claro = COR_VERMELHO_CLARO
     azul_texto = HexColor("#1f2937")
     cinza = COR_CINZA_TEXTO
 
     desenhar_fundo_padrao(c, largura, altura)
+    desenhar_titulo_pagina(c, "Produção do sistema")
 
-    c.setFont("Helvetica-Bold", 19)
-    c.setFillColor(COR_PRINCIPAL)
-    c.drawString(45, 800, "Produção do sistema")
     c.setFillColor(white)
-    c.roundRect(30, 60, largura - 60, altura - 170, 18, fill=1, stroke=0)
+    c.roundRect(30, 70, largura - 60, 640, 18, fill=1, stroke=0)
 
+    # CARD ESQUERDO
     c.setFillColor(vermelho_claro)
-    c.roundRect(50, 665, 220, 68, 12, fill=1, stroke=0)
+    c.roundRect(55, 650, 215, 70, 12, fill=1, stroke=0)
 
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
-    c.drawString(65, 705, "Produção média")
+    c.drawString(70, 695, "Produção média")
 
     prod_media = f"{dados['geracao_media']:,.0f}".replace(",", ".")
-    c.setFont("Helvetica-Bold", 20)
+    c.setFont("Helvetica-Bold", 18)
     c.setFillColor(azul_texto)
-    c.drawString(65, 680, f"{prod_media} kWh/mês")
+    c.drawString(70, 672, f"{prod_media} kWh/mês")
 
+    # CARD DIREITO
     c.setFillColor(HexColor("#fce7e7"))
-    c.roundRect(300, 650, 220, 68, 12, fill=1, stroke=0)
+    c.roundRect(325, 650, 215, 70, 12, fill=1, stroke=0)
 
-    c.setFont("Helvetica-Bold", 11)
+    c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
-    c.drawString(315, 705, "Geração anual estimada")
+    c.drawString(340, 695, "Geração anual estimada")
 
     prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
-    c.setFont("Helvetica-Bold", 20)
+    c.setFont("Helvetica-Bold", 18)
     c.setFillColor(HexColor("#111827"))
-    c.drawString(315, 680, f"{prod_anual} kWh/ano")
+    c.drawString(340, 672, f"{prod_anual} kWh/ano")
 
-    c.setFont("Helvetica-Bold", 17)
+    # TÍTULO DO GRÁFICO
+    c.setFont("Helvetica-Bold", 16)
     c.setFillColor(vermelho)
-    c.drawCentredString(largura / 2, 650, "Geração mensal do sistema")
+    c.drawCentredString(largura / 2, 610, "Geração mensal do sistema")
 
-    c.setFont("Helvetica", 10)
+    c.setFont("Helvetica", 9.5)
     c.setFillColor(cinza)
-    c.drawCentredString(largura / 2, 633, "Estimativa média de produção ao longo dos meses")
+    c.drawCentredString(largura / 2, 594, "Estimativa média de produção ao longo dos meses")
 
+    # GRÁFICO
     c.drawImage(
         ImageReader(img_geracao_buffer),
-        50,
-        300,
-        width=490,
-        height=290,
+        55,
+        285,
+        width=485,
+        height=285,
         preserveAspectRatio=True,
         mask='auto'
     )
 
-    c.setFont("Helvetica", 10.5)
+    # TEXTO INFERIOR
+    c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
-    c.drawString(50, 255, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
-    c.drawString(50, 240, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
+    c.drawString(55, 235, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
+    c.drawString(55, 220, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
 
-    c.drawString(50, 210, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
-    c.drawString(50, 174, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
+    c.drawString(55, 190, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
+    c.drawString(55, 160, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
 
     desenhar_rodape(c, pagina, total_paginas)
 
