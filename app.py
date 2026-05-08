@@ -781,25 +781,25 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "RPO SERVIÇOS")
 
-    y = 760
+    y = 735
 
-    y = desenhar_secao_titulo(c, "Sobre a empresa", 45, y)
+    y = desenhar_secao_titulo(c, "Sobre a empresa", 50, y)
     y = desenhar_paragrafo_pdf(c, "A RPO Serviços atua na elaboração de projetos e execução de instalações elétricas, sistemas fotovoltaicos, consultorias em eficiência energética e manutenções.", 45, y, largura=490)
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Missão", 45, y)
+    y = desenhar_secao_titulo(c, "Missão", 50, y)
     y = desenhar_paragrafo_pdf(c, "Executar serviços em instalações elétricas e sistemas fotovoltaicos com excelência, atendendo às normas de qualidade, segurança e meio ambiente.", 45, y, largura=490)
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Visão", 45, y)
+    y = desenhar_secao_titulo(c, "Visão", 50, y)
     y = desenhar_paragrafo_pdf(c, "Ser referência na execução de serviços em instalações elétricas, com estrutura condizente para enfrentar novos desafios e superar as expectativas dos clientes.", 45, y, largura=490)
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Valores", 45, y)
+    y = desenhar_secao_titulo(c, "Valores", 50, y)
     y = desenhar_paragrafo_pdf(c, "Ética e transparência; satisfação do cliente; qualidade; valorização dos colaboradores; sustentabilidade.", 45, y, largura=490)
     y -= 14
 
-    y = desenhar_secao_titulo(c, "Dados da empresa", 45, y)
+    y = desenhar_secao_titulo(c, "Dados da empresa", 50, y)
     y = desenhar_paragrafo_pdf(c, "RPO SERVIÇOS DE ENGENHARIA ELÉTRICA LTDA", 45, y, largura=490)
     y = desenhar_paragrafo_pdf(c, "CNPJ: 46.981.138/0001-10", 45, y, largura=490)
     y = desenhar_paragrafo_pdf(c, "Rua Rui Barbosa, 2207, Sala 01, Pirajá, Teresina - PI", 45, y, largura=490)
