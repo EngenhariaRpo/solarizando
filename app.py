@@ -966,8 +966,80 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_rodape(c, 4, total_paginas)
     c.showPage()
     
-    # PÁGINA 5 - PRODUÇÃO
-    desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, 5, total_paginas)
+        # PÁGINA 5 - PRODUÇÃO DO SISTEMA
+    desenhar_fundo_padrao(c, largura, altura)
+    desenhar_titulo_pagina(c, "Produção do sistema")
+
+    # CARDS SUPERIORES
+    c.setFillColor(HexColor("#f8eaea"))
+    c.roundRect(70, 690, 210, 65, 12, fill=1, stroke=0)
+    c.roundRect(340, 690, 210, 65, 12, fill=1, stroke=0)
+
+    c.setFillColor(COR_PRINCIPAL)
+
+    c.setFont("Helvetica-Bold", 11)
+    c.drawString(88, 735, "Produção média")
+    c.drawString(358, 735, "Geração anual estimada")
+
+    c.setFont("Helvetica-Bold", 22)
+    c.setFillColor(COR_TEXTO)
+
+    c.drawString(80, 705, f"{media_mensal:,.0f} kWh/mês".replace(",", "."))
+    c.drawString(350, 705, f"{geracao_anual:,.0f} kWh/ano".replace(",", "."))
+
+    # CAIXA PRINCIPAL
+    c.setFillColor(HexColor("#f7f7f7"))
+    c.roundRect(40, 80, 520, 590, 18, fill=1, stroke=0)
+
+    # TÍTULO DO GRÁFICO
+    c.setFont("Helvetica-Bold", 16)
+    c.setFillColor(COR_PRINCIPAL)
+    c.drawCentredString(largura / 2, 610, "Geração mensal do sistema")
+
+    c.setFont("Helvetica", 9.5)
+    c.setFillColor(cinza)
+    c.drawCentredString(largura / 2, 595, "Estimativa média de produção ao longo dos meses")
+
+    # GRÁFICO
+    c.drawImage(
+        ImageReader(img_geracao_buffer),
+        70,
+        315,
+        width=470,
+        height=245,
+        preserveAspectRatio=True,
+        mask='auto'
+    )
+
+    # TEXTO INFERIOR
+    c.setFont("Helvetica", 10)
+    c.setFillColor(COR_TEXTO)
+
+    c.drawString(
+        65,
+        255,
+        "A produção do sistema é estimada com base na irradiação solar da região, perdas do sistema"
+    )
+
+    c.drawString(
+        65,
+        240,
+        "e dimensionamento do gerador fotovoltaico informado nesta proposta."
+    )
+
+    c.drawString(
+        65,
+        205,
+        f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp"
+    )
+
+    c.drawString(
+        65,
+        175,
+        f"Área estimada ocupada: {dados['area_total']:.2f} m²"
+    )
+
+    desenhar_rodape(c, 5, total_paginas)
     c.showPage()
 
         # PÁGINA 6 - GARANTIAS E CONDIÇÕES
