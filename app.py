@@ -1112,7 +1112,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     c.setStrokeColor(HexColor("#2c2c2c"))
     c.setLineWidth(1)
-    c.roundRect(45, 225, 500, 470, 10, fill=0, stroke=1))
+    c.roundRect(45, 225, 500, 470, 10, fill=0, stroke=1)
 
     campos = [
         "Nome do cliente:",
