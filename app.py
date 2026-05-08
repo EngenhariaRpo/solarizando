@@ -1042,7 +1042,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_rodape(c, 5, total_paginas)
     c.showPage()
 
-        # PÁGINA 6 - GARANTIAS E CONDIÇÕES
+            # PÁGINA 6 - GARANTIAS E CONDIÇÕES
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Garantias e condições")
 
@@ -1052,82 +1052,110 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     y = desenhar_secao_titulo(c, "Garantias do sistema", x_texto, y)
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "Os módulos fotovoltaicos foram projetados para oferecer desempenho duradouro, com garantia de "
         "performance de até 25 anos, assegurando no mínimo 80% da capacidade original de geração ao longo "
         "do período.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
     y -= 6
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "Os módulos solares contam com 12 anos de garantia contra defeitos de fabricação, conforme as "
         "condições fornecidas pelo fabricante.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
     y -= 6
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "O inversor possui 10 anos de garantia contra defeitos de fabricação, proporcionando mais segurança "
         "e confiabilidade ao sistema instalado.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
-    y -= 14
+    y -= 16
 
     y = desenhar_secao_titulo(c, "Prazo de instalação", x_texto, y)
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "A instalação do sistema poderá ser concluída em até 60 dias após a confirmação do pagamento, "
         "seguindo o planejamento técnico do projeto.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
-    y -= 14
+    y -= 16
 
     y = desenhar_secao_titulo(c, "Observações importantes", x_texto, y)
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "• O prazo para análise e aprovação do projeto é de responsabilidade exclusiva da concessionária de energia.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
     y -= 2
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "• A substituição do medidor por modelo bidirecional é realizada pela concessionária, mediante solicitação.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
     y -= 2
 
-    y = desenhar_paragrafo_pdf(
+    y = desenhar_texto_quebrado(
         c,
         "• O padrão de entrada da unidade consumidora deverá estar em conformidade com as exigências da "
         "concessionária, sendo condição indispensável para aprovação e conexão do sistema.",
-        x_texto,
-        y,
-        largura=largura_texto
+        x=x_texto,
+        y=y,
+        largura_max=largura_texto,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16,
     )
 
     desenhar_rodape(c, 6, total_paginas)
