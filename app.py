@@ -984,7 +984,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.setFont("Helvetica-Bold", 22)
     c.setFillColor(COR_TEXTO)
 
-    c.drawString(80, 705, f"{media_mensal:,.0f} kWh/mês".replace(",", "."))
+    c.drawString(80, 705, f"{dados['geracao_media']:,.0f} kWh/mês".replace(",", "."))
     c.drawString(350, 705, f"{geracao_anual:,.0f} kWh/ano".replace(",", "."))
 
     # CAIXA PRINCIPAL
