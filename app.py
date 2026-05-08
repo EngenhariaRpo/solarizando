@@ -13,7 +13,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white
 
 
-st.set_page_config(page_title="Solarizando", layout="wide")
+st.set_page_config(page_tic.setFillColor(cinza)tle="Solarizando", layout="wide")
 
 
 # =========================================================
@@ -997,7 +997,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.drawCentredString(largura / 2, 610, "Geração mensal do sistema")
 
     c.setFont("Helvetica", 9.5)
-    c.setFillColor(cinza)
+    c.setFillColor(COR_CINZA_TEXTO)
     c.drawCentredString(largura / 2, 595, "Estimativa média de produção ao longo dos meses")
 
     # GRÁFICO
