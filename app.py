@@ -852,6 +852,7 @@ desenhar_rodape(c, 2, total_paginas)
 c.showPage()
 
 
+
         # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
