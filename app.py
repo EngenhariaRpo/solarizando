@@ -13,7 +13,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white
 
 
-st.set_page_config(page_tic.setFillColor(cinza)tle="Solarizando", layout="wide")
+st.set_page_config(page_title="Solarizando", layout="wide")
 
 
 # =========================================================
