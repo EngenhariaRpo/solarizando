@@ -152,11 +152,44 @@ MESES_LABEL = {
 
 CATALOGO_MODULOS = {
     "530 W": {"potencia_wp": 530, "largura_mm": 1134, "altura_mm": 2094},
+    "535 W": {"potencia_wp": 535, "largura_mm": 1134, "altura_mm": 2094},
+    "540 W": {"potencia_wp": 540, "largura_mm": 1134, "altura_mm": 2094},
+
     "545 W": {"potencia_wp": 545, "largura_mm": 1134, "altura_mm": 2278},
+    "550 W": {"potencia_wp": 550, "largura_mm": 1134, "altura_mm": 2278},
+    "555 W": {"potencia_wp": 555, "largura_mm": 1134, "altura_mm": 2278},
+    "560 W": {"potencia_wp": 560, "largura_mm": 1134, "altura_mm": 2278},
+    "565 W": {"potencia_wp": 565, "largura_mm": 1134, "altura_mm": 2278},
+    "570 W": {"potencia_wp": 570, "largura_mm": 1134, "altura_mm": 2278},
+    "575 W": {"potencia_wp": 575, "largura_mm": 1134, "altura_mm": 2278},
+    "580 W": {"potencia_wp": 580, "largura_mm": 1134, "altura_mm": 2278},
     "585 W": {"potencia_wp": 585, "largura_mm": 1134, "altura_mm": 2278},
+    "590 W": {"potencia_wp": 590, "largura_mm": 1134, "altura_mm": 2278},
+    "595 W": {"potencia_wp": 595, "largura_mm": 1134, "altura_mm": 2278},
+
+    "600 W": {"potencia_wp": 600, "largura_mm": 1134, "altura_mm": 2382},
+    "605 W": {"potencia_wp": 605, "largura_mm": 1134, "altura_mm": 2382},
     "610 W": {"potencia_wp": 610, "largura_mm": 1134, "altura_mm": 2382},
+    "615 W": {"potencia_wp": 615, "largura_mm": 1134, "altura_mm": 2382},
+    "620 W": {"potencia_wp": 620, "largura_mm": 1134, "altura_mm": 2382},
+    "625 W": {"potencia_wp": 625, "largura_mm": 1134, "altura_mm": 2382},
     "630 W": {"potencia_wp": 630, "largura_mm": 1134, "altura_mm": 2382},
+    "635 W": {"potencia_wp": 635, "largura_mm": 1134, "altura_mm": 2382},
+    "640 W": {"potencia_wp": 640, "largura_mm": 1134, "altura_mm": 2382},
+    "645 W": {"potencia_wp": 645, "largura_mm": 1134, "altura_mm": 2382},
+    "650 W": {"potencia_wp": 650, "largura_mm": 1134, "altura_mm": 2382},
+
+    "655 W": {"potencia_wp": 655, "largura_mm": 1303, "altura_mm": 2384},
+    "660 W": {"potencia_wp": 660, "largura_mm": 1303, "altura_mm": 2384},
+    "665 W": {"potencia_wp": 665, "largura_mm": 1303, "altura_mm": 2384},
+    "670 W": {"potencia_wp": 670, "largura_mm": 1303, "altura_mm": 2384},
+    "675 W": {"potencia_wp": 675, "largura_mm": 1303, "altura_mm": 2384},
+    "680 W": {"potencia_wp": 680, "largura_mm": 1303, "altura_mm": 2384},
+    "685 W": {"potencia_wp": 685, "largura_mm": 1303, "altura_mm": 2384},
+    "690 W": {"potencia_wp": 690, "largura_mm": 1303, "altura_mm": 2384},
+    "695 W": {"potencia_wp": 695, "largura_mm": 1303, "altura_mm": 2384},
     "700 W": {"potencia_wp": 700, "largura_mm": 1303, "altura_mm": 2384},
+}
 }
 
 
