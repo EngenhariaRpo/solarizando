@@ -615,29 +615,29 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
 
     # CARD ESQUERDO
     c.setFillColor(vermelho_claro)
-    c.roundRect(55, 650, 215, 70, 12, fill=1, stroke=0)
+    c.roundRect(55, 690, 215, 70, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
-    c.drawString(70, 695, "Produção média")
+    c.drawString(70, 735, "Produção média")
 
     prod_media = f"{dados['geracao_media']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 18)
     c.setFillColor(azul_texto)
-    c.drawString(70, 672, f"{prod_media} kWh/mês")
+    c.drawString(70, 712, f"{prod_media} kWh/mês")
 
     # CARD DIREITO
     c.setFillColor(HexColor("#fce7e7"))
-    c.roundRect(325, 650, 215, 70, 12, fill=1, stroke=0)
+    c.roundRect(325, 690, 215, 70, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
-    c.drawString(340, 695, "Geração anual estimada")
+    c.drawString(340, 735, "Geração anual estimada")
 
     prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 18)
     c.setFillColor(HexColor("#111827"))
-    c.drawString(340, 672, f"{prod_anual} kWh/ano")
+    c.drawString(340, 712, f"{prod_anual} kWh/ano")
 
     # TÍTULO DO GRÁFICO
     c.setFont("Helvetica-Bold", 16)
