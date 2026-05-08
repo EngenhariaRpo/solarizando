@@ -615,7 +615,7 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
 
     # CARD ESQUERDO
     c.setFillColor(vermelho_claro)
-    c.roundRect(55, 690, 215, 70, 12, fill=1, stroke=0)
+    c.roundRect(55, 680, 215, 70, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
@@ -628,11 +628,11 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
 
     # CARD DIREITO
     c.setFillColor(HexColor("#fce7e7"))
-    c.roundRect(325, 690, 215, 70, 12, fill=1, stroke=0)
+    c.roundRect(325, 680, 215, 70, 12, fill=1, stroke=0)
 
     c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
-    c.drawString(340, 735, "Geração anual estimada")
+    c.drawString(340, 745, "Geração anual estimada")
 
     prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 18)
