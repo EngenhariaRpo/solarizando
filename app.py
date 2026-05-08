@@ -592,7 +592,7 @@ def desenhar_capa_fallback(c, largura, altura, nome_cliente):
     c.drawString(60, 110, "PROPOSTA COMERCIAL")
 
     c.setFont("Helvetica-Bold", 14)
-    c.drawRightString(530, 85, texto_maiusculo_seguro(nome_cliente) or "CLIENTE")
+    c.drawRightString(490, 85, texto_maiusculo_seguro(nome_cliente) or "CLIENTE")
 
 
 def desenhar_titulo_pagina(c, titulo):
@@ -697,8 +697,16 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     # TEXTO INFERIOR
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
-    c.drawString(55, 315, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
-    c.drawString(55, 300, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
+    desenhar_paragrafo_pdf(
+    c,
+    "A produção do sistema é estimada com base na irradiação solar da região, perdas do sistema "
+    "e dimensionamento do gerador fotovoltaico informado nesta proposta.",
+    55,
+    315,
+    largura=485,
+    tamanho=10,
+    espacamento=15
+)
 
     c.drawString(55, 265, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
     c.drawString(55, 235, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
@@ -722,7 +730,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         c.drawImage(capa, 0, 0, width=largura, height=altura)
         c.setFont("Helvetica-Bold", 14)
         c.setFillColor(COR_PRINCIPAL)
-        c.drawRightString(530, 83, texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE")
+        c.drawRightString(490, 83, texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE")
     except Exception:
         desenhar_capa_fallback(c, largura, altura, dados["nome_cliente"])
     desenhar_rodape(c, 1, total_paginas)
@@ -926,7 +934,15 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     c.setFont("Helvetica", 10.5)
     c.setFillColor(COR_TEXTO)
-    c.drawString(50, 770, "Lista de produtos orçados nesta proposta comercial.")
+    desenhar_paragrafo_pdf(
+    c,
+    "Lista de produtos orçados nesta proposta comercial.",
+    50,
+    770,
+    largura=490,
+    tamanho=10.5,
+    espacamento=15
+)
 
     c.setFillColor(COR_CAIXA)
     c.roundRect(45, 710, 500, 30, 8, fill=1, stroke=0)
@@ -1017,21 +1033,20 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         y -= 38
 
     c.setStrokeColor(COR_LINHA)
-    c.line(70, 95, 240, 95)
-    c.line(325, 95, 495, 95)
+    c.line(70, 130, 240, 130)
+    c.line(325, 130, 495, 130)
 
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
-    
-    c.drawCentredString(155, 80, "RPO SERVIÇOS")
-    c.drawCentredString(155, 66, "46.981.138/0001-10")
+
+    c.drawCentredString(155, 115, "RPO SERVIÇOS")
+    c.drawCentredString(155, 101, "46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
     cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
 
-    c.drawCentredString(410, 80, nome_ass)
-    c.drawCentredString(410, 66, cpf_ass)
-
+    c.drawCentredString(410, 115, nome_ass)
+    c.drawCentredString(410, 101, cpf_ass)
     desenhar_rodape(c, 8, total_paginas)
     c.save()
     buffer.seek(0)
