@@ -1132,18 +1132,23 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     # ASSINATURAS
     c.setStrokeColor(COR_LINHA)
-    c.line(70, 255, 240, 255)
-    c.line(325, 255, 495, 255)
 
-    c.setFont("Helvetica", 10)
+    c.line(55, 255, 255, 255)
+    c.line(310, 255, 510, 255)
+
     c.setFillColor(COR_TEXTO)
 
-    c.drawCentredString(155, 240, "RPO SERVIÇOS DE ENGENHARIA ELÉTRICA LTDA")
-    c.drawCentredString(155, 226, "46.981.138/0001-10")
+    c.setFont("Helvetica", 8.5)
+    c.drawCentredString(155, 240, "RPO SERVIÇOS DE ENGENHARIA")
+    c.drawCentredString(155, 228, "ELÉTRICA LTDA")
+
+    c.setFont("Helvetica", 9)
+    c.drawCentredString(155, 214, "46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
     cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
 
+    c.setFont("Helvetica", 9)
     c.drawCentredString(410, 240, nome_ass)
     c.drawCentredString(410, 226, cpf_ass)
 
