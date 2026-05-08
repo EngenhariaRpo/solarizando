@@ -190,7 +190,6 @@ CATALOGO_MODULOS = {
     "695 W": {"potencia_wp": 695, "largura_mm": 1303, "altura_mm": 2384},
     "700 W": {"potencia_wp": 700, "largura_mm": 1303, "altura_mm": 2384},
 }
-}
 
 
 # =========================================================
