@@ -1141,8 +1141,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
 
-    c.drawCentredString(155, 240, "RPO SERVIÇOS DE ENGENHARIA ELETRICA
-LTDA")
+    c.drawCentredString(155, 240, "RPO SERVIÇOS DE ENGENHARIA ELÉTRICA LTDA")
     c.drawCentredString(155, 226, "46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
