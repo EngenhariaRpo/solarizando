@@ -1089,13 +1089,13 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     desenhar_rodape(c, 7, total_paginas)
     c.showPage()
 
-    # PÁGINA 8 - ACEITE
+        # PÁGINA 8 - ACEITE
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Aceite da proposta")
 
     texto_aceite = (
-        "Estando de acordo com os produtos, valores e termos relatados nesta proposta, "
-        "as partes firmam o aceite comercial."
+        "Ao assinar este documento, as partes declaram estar de acordo com os termos e condições "
+        "apresentados nesta proposta comercial."
     )
 
     desenhar_texto_quebrado(
@@ -1110,45 +1110,46 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         espacamento=18,
     )
 
+    # QUADRO DE DADOS
     c.setStrokeColor(HexColor("#2c2c2c"))
     c.setLineWidth(1)
-    c.roundRect(45, 225, 500, 470, 10, fill=0, stroke=1)
+    c.roundRect(45, 315, 500, 300, 12, fill=0, stroke=1)
 
     campos = [
         "Nome do cliente:",
         "CPF / CNPJ:",
-        "RG:",
         "Endereço:",
         "Cidade:",
-        "UF:",
         "Email:",
         "Telefone:",
     ]
 
-    y = 605
+    y = 565
     for campo in campos:
         c.setFont("Helvetica", 10.5)
         c.setFillColor(COR_PRINCIPAL)
-        c.drawString(50, y, campo)
+        c.drawString(65, y, campo)
         c.setStrokeColor(COR_LINHA)
-        c.line(175, y - 2, 490, y - 2)
-        y -= 38
+        c.line(175, y - 2, 500, y - 2)
+        y -= 42
 
+    # ASSINATURAS
     c.setStrokeColor(COR_LINHA)
-    c.line(70, 130, 240, 130)
-    c.line(325, 130, 495, 130)
+    c.line(70, 205, 240, 205)
+    c.line(325, 205, 495, 205)
 
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
 
-    c.drawCentredString(155, 115, "RPO SERVIÇOS")
-    c.drawCentredString(155, 101, "46.981.138/0001-10")
+    c.drawCentredString(155, 190, "RPO SERVIÇOS")
+    c.drawCentredString(155, 176, "46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
     cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
 
-    c.drawCentredString(410, 115, nome_ass)
-    c.drawCentredString(410, 101, cpf_ass)
+    c.drawCentredString(410, 190, nome_ass)
+    c.drawCentredString(410, 176, cpf_ass)
+
     desenhar_rodape(c, 8, total_paginas)
     c.save()
     buffer.seek(0)
