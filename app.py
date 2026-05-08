@@ -810,6 +810,84 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     desenhar_rodape(c, 2, total_paginas)
     c.showPage()
+
+
+        # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
+    desenhar_fundo_padrao(c, largura, altura)
+    desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
+
+    c.setFont("Helvetica", 10.5)
+    c.setFillColor(COR_TEXTO)
+    c.drawString(50, 770, "Entenda de forma visual como a energia solar funciona no sistema fotovoltaico.")
+
+    try:
+        img_funcionamento = ImageReader("solar.png")
+        c.drawImage(
+            img_funcionamento,
+            45,
+            440,
+            width=505,
+            height=300,
+            preserveAspectRatio=True,
+            mask='auto'
+        )
+    except Exception:
+        c.setFont("Helvetica-Bold", 12)
+        c.setFillColor(COR_PRINCIPAL)
+        c.drawString(50, 720, "Imagem solar.png não encontrada")
+
+    y = 370
+
+    def titulo_funcionamento(txt, y):
+        c.setFont("Helvetica-Bold", 11)
+        c.setFillColor(COR_PRINCIPAL)
+        c.drawString(50, y, txt)
+        c.setStrokeColor(COR_PRINCIPAL)
+        c.setLineWidth(1)
+        c.line(50, y - 3, 545, y - 3)
+        return y - 16
+
+    y = titulo_funcionamento("1. PAINÉIS SOLARES", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Captam a luz do sol e a transformam em energia elétrica em corrente contínua.",
+        50, y, largura=490
+    )
+    y -= 10
+
+    y = titulo_funcionamento("2. INVERSOR", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "O inversor converte a energia de corrente contínua dos painéis em corrente alternada, que pode ser usada na casa.",
+        50, y, largura=490
+    )
+    y -= 10
+
+    y = titulo_funcionamento("3. QUADRO DE LUZ", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A energia já em corrente alternada é distribuída pelo quadro de luz para os circuitos da casa.",
+        50, y, largura=490
+    )
+    y -= 10
+
+    y = titulo_funcionamento("4. CONSUMO NA RESIDÊNCIA", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "A energia produzida abastece os aparelhos e equipamentos da casa: lâmpadas, geladeira, máquina de lavar, chuveiro, tomadas, etc.",
+        50, y, largura=490
+    )
+    y -= 10
+
+    y = titulo_funcionamento("5. REDE ELÉTRICA", y)
+    y = desenhar_paragrafo_pdf(
+        c,
+        "Se a produção dos painéis for maior que o consumo, o excesso de energia é enviado para a rede elétrica. Se for menor, a energia necessária é complementada pela rede.",
+        50, y, largura=490
+    )
+
+    desenhar_rodape(c, 3, total_paginas)
+    c.showPage()
     
 
         # PÁGINA 4 - PROCESSO DOS SERVIÇOS
