@@ -592,7 +592,7 @@ def desenhar_capa_fallback(c, largura, altura, nome_cliente):
     c.drawString(60, 110, "PROPOSTA COMERCIAL")
 
     c.setFont("Helvetica-Bold", 14)
-    c.drawRightString(490, 85, texto_maiusculo_seguro(nome_cliente) or "CLIENTE")
+    c.drawRightString(490, 75, texto_maiusculo_seguro(nome_cliente) or "CLIENTE")
 
 
 def desenhar_titulo_pagina(c, titulo):
@@ -730,7 +730,14 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         c.drawImage(capa, 0, 0, width=largura, height=altura)
         c.setFont("Helvetica-Bold", 14)
         c.setFillColor(COR_PRINCIPAL)
-        c.drawRightString(490, 83, texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE")
+        c.setFont("Helvetica-Bold", 13)
+        c.setFillColor(COR_PRINCIPAL)
+
+        c.drawRightString(
+            500,
+            85,
+            texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE"
+)
     except Exception:
         desenhar_capa_fallback(c, largura, altura, dados["nome_cliente"])
     desenhar_rodape(c, 1, total_paginas)
