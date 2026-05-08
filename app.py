@@ -850,7 +850,6 @@ y = desenhar_paragrafo_pdf(
 
 desenhar_rodape(c, 2, total_paginas)
 c.showPage()
-```
 
 
         # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
