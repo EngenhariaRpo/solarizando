@@ -697,11 +697,11 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     # TEXTO INFERIOR
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
-    c.drawString(55, 265, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
-    c.drawString(55, 250, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
+    c.drawString(55, 315, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
+    c.drawString(55, 300, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
 
-    c.drawString(55, 205, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
-    c.drawString(55, 175, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
+    c.drawString(55, 265, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
+    c.drawString(55, 235, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
 
     desenhar_rodape(c, pagina, total_paginas)
 
