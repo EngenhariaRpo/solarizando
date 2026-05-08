@@ -888,56 +888,82 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.showPage()
     
 
-        # PÁGINA 4 - PROCESSO DOS SERVIÇOS
+            # PÁGINA 4 - ETAPAS DO PROJETO
     desenhar_fundo_padrao(c, largura, altura)
     desenhar_titulo_pagina(c, "Etapas do Projeto")
 
     y = 735
+    x_texto = 50
+    largura_texto = 490
 
-    y = desenhar_secao_titulo(c, "Vistoria Técnica", 45, y)
+    # VISTORIA TÉCNICA
+    y = desenhar_secao_titulo(c, "Vistoria Técnica", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "Realização de análise técnica no local, com o objetivo de verificar as condições de instalação, "
         "incluindo estrutura, área disponível e incidência solar.",
-        50, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
-    y -= 8
 
-    y = desenhar_secao_titulo(c, "Projeto e Execução", 45, y)
+    y -= 10
+
+    # PROJETO E EXECUÇÃO
+    y = desenhar_secao_titulo(c, "Projeto e Execução", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "Elaboração do projeto técnico por equipe de engenharia especializada, bem como a execução completa "
         "da instalação do sistema fotovoltaico, em conformidade com as normas técnicas e padrões de segurança.",
-        50, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
-    y -= 8
 
-    y = desenhar_secao_titulo(c, "Homologação do Projeto", 45, y)
+    y -= 10
+
+    # HOMOLOGAÇÃO
+    y = desenhar_secao_titulo(c, "Homologação do Projeto", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "Responsabilidade pelo protocolo e acompanhamento do processo de aprovação junto à concessionária "
         "de energia.",
-        50, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
-    y -= 8
 
-    y = desenhar_secao_titulo(c, "Ativação do Sistema", 45, y)
+    y -= 10
+
+    # ATIVAÇÃO
+    y = desenhar_secao_titulo(c, "Ativação do Sistema", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "Após a conclusão da instalação, é realizada a solicitação junto à concessionária para os procedimentos "
         "necessários à conexão do sistema, incluindo a substituição do medidor convencional por medidor "
         "bidirecional e liberação para operação.",
-        50, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
-    y -= 8
 
-    y = desenhar_secao_titulo(c, "Acompanhamento e Garantia", 45, y)
+    y -= 10
+
+    # ACOMPANHAMENTO
+    y = desenhar_secao_titulo(c, "Acompanhamento e Garantia", x_texto, y)
+
     y = desenhar_paragrafo_pdf(
         c,
         "A empresa realizará o acompanhamento do funcionamento do sistema pelo período de 12 (doze) meses, "
         "correspondente à garantia da instalação, assegurando o correto desempenho e prestando suporte técnico "
         "quando necessário.",
-        50, y, largura=490
+        x_texto,
+        y,
+        largura=largura_texto
     )
 
     desenhar_rodape(c, 4, total_paginas)
@@ -1012,9 +1038,9 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     c.setFillColor(COR_TEXTO)
     desenhar_paragrafo_pdf(
     c,
-    "Lista de produtos orçados nesta proposta comercial.",
+    "Descrição dos equipamentos e serviços contemplados nesta proposta.",
     50,
-    770,
+    748,
     largura=490,
     tamanho=10.5,
     espacamento=15
@@ -1086,7 +1112,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     c.setStrokeColor(HexColor("#2c2c2c"))
     c.setLineWidth(1)
-    c.rect(35, 235, 495, 470, fill=0, stroke=1)
+    c.roundRect(45, 225, 500, 470, 10, fill=0, stroke=1))
 
     campos = [
         "Nome do cliente:",
