@@ -310,23 +310,51 @@ def desenhar_texto_quebrado(c, texto, x, y, largura_max, font_name="Helvetica", 
     c.setFillColor(cor)
 
     palavras = texto.split()
-    linha = ""
     linhas = []
+    linha = []
 
     for palavra in palavras:
-        teste = f"{linha} {palavra}".strip()
+        teste = " ".join(linha + [palavra])
+
         if c.stringWidth(teste, font_name, font_size) <= largura_max:
-            linha = teste
+            linha.append(palavra)
         else:
             linhas.append(linha)
-            linha = palavra
+            linha = [palavra]
 
     if linha:
         linhas.append(linha)
 
     y_atual = y
-    for item in linhas:
-        c.drawString(x, y_atual, item)
+
+    for i, linha in enumerate(linhas):
+        texto_linha = " ".join(linha)
+
+        if i == len(linhas) - 1 or len(linha) == 1:
+            c.drawString(x, y_atual, texto_linha)
+
+        else:
+            largura_texto = sum(
+                c.stringWidth(p, font_name, font_size)
+                for p in linha
+            )
+
+            espacos = len(linha) - 1
+
+            largura_sobra = largura_max - largura_texto
+
+            espaco_extra = largura_sobra / espacos
+
+            x_atual = x
+
+            for palavra in linha:
+                c.drawString(x_atual, y_atual, palavra)
+
+                x_atual += (
+                    c.stringWidth(palavra, font_name, font_size)
+                    + espaco_extra
+                )
+
         y_atual -= espacamento
 
     return y_atual
@@ -482,7 +510,7 @@ def obter_irradiacao_cidade(uf, cidade):
 # GRÁFICOS
 # =========================================================
 
-# def gerar_imagem_grafico_geracao(df_geracao):
+def gerar_imagem_grafico_geracao(df_geracao):
     fig, ax = plt.subplots(figsize=(8.0, 3.6))
 
     barras = ax.bar(
@@ -492,7 +520,6 @@ def obter_irradiacao_cidade(uf, cidade):
         width=0.55
     )
 
-    ax.set_title("Geração estimada por mês", fontsize=14, fontweight="bold", pad=10)
     ax.set_ylabel("kWh", fontsize=10)
     ax.grid(axis="y", linestyle="--", alpha=0.25)
 
