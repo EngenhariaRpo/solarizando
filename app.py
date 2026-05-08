@@ -1135,20 +1135,21 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     # ASSINATURAS
     c.setStrokeColor(COR_LINHA)
-    c.line(70, 205, 240, 205)
-    c.line(325, 205, 495, 205)
+    c.line(70, 255, 240, 255)
+    c.line(325, 255, 495, 255)
 
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
 
-    c.drawCentredString(155, 190, "RPO SERVIÇOS")
-    c.drawCentredString(155, 176, "46.981.138/0001-10")
+    c.drawCentredString(155, 240, "RPO SERVIÇOS DE ENGENHARIA ELETRICA
+LTDA")
+    c.drawCentredString(155, 226, "46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
     cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
 
-    c.drawCentredString(410, 190, nome_ass)
-    c.drawCentredString(410, 176, cpf_ass)
+    c.drawCentredString(410, 240, nome_ass)
+    c.drawCentredString(410, 226, cpf_ass)
 
     desenhar_rodape(c, 8, total_paginas)
     c.save()
