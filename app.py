@@ -742,7 +742,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         desenhar_capa_fallback(c, largura, altura, dados["nome_cliente"])
     desenhar_rodape(c, 1, total_paginas)
     c.showPage()
-        ```python
+    
 # PÁGINA 2 - SOBRE A EMPRESA
 desenhar_fundo_padrao(c, largura, altura)
 desenhar_titulo_pagina(c, "RPO SERVIÇOS")
