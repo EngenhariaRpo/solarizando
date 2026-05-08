@@ -482,7 +482,7 @@ def obter_irradiacao_cidade(uf, cidade):
 # GRÁFICOS
 # =========================================================
 
-def gerar_imagem_grafico_geracao(df_geracao):
+# ax.set_title("Geração estimada por mês", fontsize=14, fontweight="bold", pad=10)
     fig, ax = plt.subplots(figsize=(8.0, 3.6))
 
     barras = ax.bar(
@@ -632,7 +632,7 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
 
     c.setFont("Helvetica-Bold", 10)
     c.setFillColor(vermelho)
-    c.drawString(340, 745, "Geração anual estimada")
+    c.drawString(340, 735, "Geração anual estimada")
 
     prod_anual = f"{dados['geracao_anual']:,.0f}".replace(",", ".")
     c.setFont("Helvetica-Bold", 18)
@@ -642,17 +642,17 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     # TÍTULO DO GRÁFICO
     c.setFont("Helvetica-Bold", 16)
     c.setFillColor(vermelho)
-    c.drawCentredString(largura / 2, 610, "Geração mensal do sistema")
+    c.drawCentredString(largura / 2, 635, "Geração mensal do sistema")
 
     c.setFont("Helvetica", 9.5)
     c.setFillColor(cinza)
-    c.drawCentredString(largura / 2, 594, "Estimativa média de produção ao longo dos meses")
+    c.drawCentredString(largura / 2, 620, "Estimativa média de produção ao longo dos meses")
 
     # GRÁFICO
     c.drawImage(
         ImageReader(img_geracao_buffer),
         55,
-        285,
+        330,
         width=485,
         height=285,
         preserveAspectRatio=True,
