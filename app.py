@@ -618,12 +618,20 @@ def desenhar_bloco_titulo_texto(c, titulo, linhas, x, y_inicial):
     c.drawString(x, y_inicial, titulo)
 
     y = y_inicial - 18
-    c.setFont("Helvetica", 10.5)
-    c.setFillColor(COR_TEXTO)
 
-    for linha in linhas:
-        c.drawString(x, y, linha)
-        y -= 16
+    texto = " ".join(linhas)
+
+    y = desenhar_texto_quebrado(
+        c,
+        texto,
+        x,
+        y,
+        largura_max=490,
+        font_name="Helvetica",
+        font_size=10.5,
+        cor=COR_TEXTO,
+        espacamento=16
+    )
 
     return y
 
@@ -689,11 +697,11 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     # TEXTO INFERIOR
     c.setFont("Helvetica", 10)
     c.setFillColor(COR_TEXTO)
-    c.drawString(55, 235, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
-    c.drawString(55, 220, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
+    c.drawString(55, 245, "A produção do sistema é estimada com base na radiação solar da região, perdas do sistema")
+    c.drawString(55, 230, "e dimensionamento do gerador fotovoltaico informado nesta proposta.")
 
-    c.drawString(55, 190, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
-    c.drawString(55, 160, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
+    c.drawString(55, 195, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
+    c.drawString(55, 165, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
 
     desenhar_rodape(c, pagina, total_paginas)
 
