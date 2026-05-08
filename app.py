@@ -782,7 +782,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = 735
     
     # SOBRE A EMPRESA
-    y = desenhar_secao_titulo(c, "Sobre a empresa", 60, y)
+    y = desenhar_secao_titulo(c, "Sobre a empresa", 50, y)
     
     y = desenhar_paragrafo_pdf(
     c,
@@ -796,7 +796,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y -= 18
     
     # MISSÃO
-    y = desenhar_secao_titulo(c, "Missão", 60, y)
+    y = desenhar_secao_titulo(c, "Missão", 50, y)
     
     y = desenhar_paragrafo_pdf(
     c,
@@ -810,7 +810,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y -= 18
     
     # VISÃO
-    y = desenhar_secao_titulo(c, "Visão", 60, y)
+    y = desenhar_secao_titulo(c, "Visão", 50, y)
     
     y = desenhar_paragrafo_pdf(
     c,
@@ -824,60 +824,60 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y -= 18
     
     # VALORES
-    y = desenhar_secao_titulo(c, "Valores", 60, y)
+    y = desenhar_secao_titulo(c, "Valores", 50, y)
     
     y = desenhar_paragrafo_pdf(
     c,
     "Ética e transparência; satisfação do cliente; qualidade; valorização dos colaboradores; "
     "sustentabilidade.",
-    60,
+    40,
     y,
-    largura=430
+    largura=440
     )
     
     y -= 20
     
     # DADOS DA EMPRESA
-    y = desenhar_secao_titulo(c, "Dados da empresa", 60, y)
+    y = desenhar_secao_titulo(c, "Dados da empresa", 50, y)
     
     y = desenhar_paragrafo_pdf(
     c,
     "RPO SERVIÇOS DE ENGENHARIA ELÉTRICA LTDA",
-    60,
+    50,
     y,
-    largura=430
+    largura=440
     )
     
     y = desenhar_paragrafo_pdf(
     c,
     "CNPJ: 46.981.138/0001-10",
-    60,
+    50,
     y,
-    largura=430
+    largura=440
     )
     
     y = desenhar_paragrafo_pdf(
     c,
     "Rua Rui Barbosa, 2207, Sala 01, Pirajá, Teresina - PI",
-    60,
+    50,
     y,
-    largura=430
+    largura=440
     )
     
     y = desenhar_paragrafo_pdf(
     c,
     "Telefone: (86) 98822-3936",
-    60,
+    50,
     y,
-    largura=430
+    largura=440
     )
     
     y = desenhar_paragrafo_pdf(
     c,
     "E-mail: rpoengenhariapi@gmail.com",
-    60,
+    50,
     y,
-    largura=430
+    largura=440
     )
     
     desenhar_rodape(c, 2, total_paginas)
