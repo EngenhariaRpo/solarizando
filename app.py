@@ -885,9 +885,9 @@ c.showPage()
 
 
 
-        # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
-    desenhar_fundo_padrao(c, largura, altura)
-    desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
+# PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
+desenhar_fundo_padrao(c, largura, altura)
+desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
 
     c.setFont("Helvetica", 10.5)
     c.setFillColor(COR_TEXTO)
