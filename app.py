@@ -783,23 +783,23 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     y = 735
 
-    y = desenhar_secao_titulo(c, "Sobre a empresa", 50, y)
+    y = desenhar_secao_titulo(c, "Sobre a empresa", 45, y)
     y = desenhar_paragrafo_pdf(c, "A RPO Serviços atua na elaboração de projetos e execução de instalações elétricas, sistemas fotovoltaicos, consultorias em eficiência energética e manutenções.", 45, y, largura=490)
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Missão", 50, y)
+    y = desenhar_secao_titulo(c, "Missão", 45, y)
     y = desenhar_paragrafo_pdf(c, "Executar serviços em instalações elétricas e sistemas fotovoltaicos com excelência, atendendo às normas de qualidade, segurança e meio ambiente.", 45, y, largura=490)
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Visão", 50, y)
+    y = desenhar_secao_titulo(c, "Visão", 45, y)
     y = desenhar_paragrafo_pdf(c, "Ser referência na execução de serviços em instalações elétricas, com estrutura condizente para enfrentar novos desafios e superar as expectativas dos clientes.", 45, y, largura=490)
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Valores", 50, y)
+    y = desenhar_secao_titulo(c, "Valores", 45, y)
     y = desenhar_paragrafo_pdf(c, "Ética e transparência; satisfação do cliente; qualidade; valorização dos colaboradores; sustentabilidade.", 45, y, largura=490)
     y -= 14
 
-    y = desenhar_secao_titulo(c, "Dados da empresa", 50, y)
+    y = desenhar_secao_titulo(c, "Dados da empresa", 45, y)
     y = desenhar_paragrafo_pdf(c, "RPO SERVIÇOS DE ENGENHARIA ELÉTRICA LTDA", 45, y, largura=490)
     y = desenhar_paragrafo_pdf(c, "CNPJ: 46.981.138/0001-10", 45, y, largura=490)
     y = desenhar_paragrafo_pdf(c, "Rua Rui Barbosa, 2207, Sala 01, Pirajá, Teresina - PI", 45, y, largura=490)
@@ -894,7 +894,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     y = 735
 
-    y = desenhar_secao_titulo(c, "Vistoria Técnica", 50, y)
+    y = desenhar_secao_titulo(c, "Vistoria Técnica", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "Realização de análise técnica no local, com o objetivo de verificar as condições de instalação, "
@@ -903,7 +903,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     )
     y -= 8
 
-    y = desenhar_secao_titulo(c, "Projeto e Execução", 50, y)
+    y = desenhar_secao_titulo(c, "Projeto e Execução", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "Elaboração do projeto técnico por equipe de engenharia especializada, bem como a execução completa "
@@ -912,7 +912,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     )
     y -= 8
 
-    y = desenhar_secao_titulo(c, "Homologação do Projeto", 50, y)
+    y = desenhar_secao_titulo(c, "Homologação do Projeto", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "Responsabilidade pelo protocolo e acompanhamento do processo de aprovação junto à concessionária "
@@ -921,7 +921,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     )
     y -= 8
 
-    y = desenhar_secao_titulo(c, "Ativação do Sistema", 50, y)
+    y = desenhar_secao_titulo(c, "Ativação do Sistema", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "Após a conclusão da instalação, é realizada a solicitação junto à concessionária para os procedimentos "
@@ -931,7 +931,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     )
     y -= 8
 
-    y = desenhar_secao_titulo(c, "Acompanhamento e Garantia", 50, y)
+    y = desenhar_secao_titulo(c, "Acompanhamento e Garantia", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "A empresa realizará o acompanhamento do funcionamento do sistema pelo período de 12 (doze) meses, "
@@ -953,52 +953,52 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
     y = 735
 
-    y = desenhar_secao_titulo(c, "Garantias do sistema", 50, y)
+    y = desenhar_secao_titulo(c, "Garantias do sistema", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "Os módulos fotovoltaicos foram projetados para oferecer desempenho duradouro, com garantia de "
         "performance de até 25 anos, assegurando no mínimo 80% da capacidade original de geração ao longo do período.",
-        50, y, largura=490
+        45, y, largura=490
     )
     y = desenhar_paragrafo_pdf(
         c,
         "Os módulos solares contam com 12 anos de garantia contra defeitos de fabricação, conforme as condições "
         "fornecidas pelo fabricante.",
-        50, y - 4, largura=490
+        45, y - 4, largura=490
     )
     y = desenhar_paragrafo_pdf(
         c,
         "O inversor possui 10 anos de garantia contra defeitos de fabricação, proporcionando mais segurança e "
         "confiabilidade ao sistema instalado.",
-        50, y - 4, largura=490
+        45, y - 4, largura=490
     )
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Prazo de instalação", 50, y)
+    y = desenhar_secao_titulo(c, "Prazo de instalação", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "A instalação do sistema poderá ser concluída em até 60 dias após a confirmação do pagamento, "
         "seguindo o planejamento técnico do projeto.",
-        50, y, largura=490
+        45, y, largura=490
     )
     y -= 12
 
-    y = desenhar_secao_titulo(c, "Observações importantes", 50, y)
+    y = desenhar_secao_titulo(c, "Observações importantes", 45, y)
     y = desenhar_paragrafo_pdf(
         c,
         "• O prazo para análise e aprovação do projeto é de responsabilidade exclusiva da concessionária de energia.",
-        50, y, largura=490
+        45, y, largura=490
     )
     y = desenhar_paragrafo_pdf(
         c,
         "• A substituição do medidor por modelo bidirecional é realizada pela concessionária, mediante solicitação.",
-        50, y - 2, largura=490
+        45, y - 2, largura=490
     )
     y = desenhar_paragrafo_pdf(
         c,
         "• O padrão de entrada da unidade consumidora deverá estar em conformidade com as exigências da "
         "concessionária, sendo condição indispensável para aprovação e conexão do sistema.",
-        50, y - 2, largura=490
+        45, y - 2, largura=490
     )
 
     desenhar_rodape(c, 6, total_paginas)
