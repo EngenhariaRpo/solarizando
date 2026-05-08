@@ -891,7 +891,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = titulo_funcionamento("1. PAINÉIS SOLARES", y)
     y = desenhar_paragrafo_pdf(
         c,
-        "Os módulos solares captam a luz do sol e realizam a conversão da energia em corrente contínua para utilização no sistema fotovoltaico."
+        "Os módulos solares captam a luz do sol e realizam a conversão da energia em corrente contínua para utilização no sistema fotovoltaico.",
         50, y, largura=490
     )
     y -= 10
@@ -915,7 +915,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = titulo_funcionamento("4. CONSUMO NA RESIDÊNCIA", y)
     y = desenhar_paragrafo_pdf(
         c,
-        "A energia produzida pelo sistema abastece os equipamentos e aparelhos elétricos da residência, como iluminação, tomadas, eletrodomésticos e demais dispositivos."
+        "A energia produzida pelo sistema abastece os equipamentos e aparelhos elétricos da residência, como iluminação, tomadas, eletrodomésticos e demais dispositivos.",
         50, y, largura=490
     )
     y -= 10
