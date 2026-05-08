@@ -482,7 +482,7 @@ def obter_irradiacao_cidade(uf, cidade):
 # GRÁFICOS
 # =========================================================
 
-# ax.set_title("Geração estimada por mês", fontsize=14, fontweight="bold", pad=10)
+# def gerar_imagem_grafico_geracao(df_geracao):
     fig, ax = plt.subplots(figsize=(8.0, 3.6))
 
     barras = ax.bar(
