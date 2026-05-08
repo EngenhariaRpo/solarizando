@@ -624,7 +624,7 @@ def desenhar_capa_fallback(c, largura, altura, nome_cliente):
     c.drawString(60, 110, "PROPOSTA COMERCIAL")
 
     c.setFont("Helvetica-Bold", 14)
-    c.drawRightString(490, 75, texto_maiusculo_seguro(nome_cliente) or "CLIENTE")
+    c.drawRightString(490, 62, texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE")
 
 
 def desenhar_titulo_pagina(c, titulo):
@@ -740,7 +740,7 @@ def desenhar_pagina_producao(c, largura, altura, dados, img_geracao_buffer, pagi
     espacamento=15
 )
 
-    c.drawString(55, 265, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
+    c.drawString(55, 300, f"Potência estimada do sistema: {dados['potencia_kwp']:.2f} kWp")
     c.drawString(55, 235, f"Área estimada ocupada: {dados['area_total']:.2f} m²")
 
     desenhar_rodape(c, pagina, total_paginas)
@@ -1121,7 +1121,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         "Telefone:",
     ]
 
-    y = 615
+    y = 635
     for campo in campos:
         c.setFont("Helvetica", 10.5)
         c.setFillColor(COR_PRINCIPAL)
@@ -1133,24 +1133,24 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     # ASSINATURAS
     c.setStrokeColor(COR_LINHA)
 
-    c.line(55, 255, 255, 255)
-    c.line(310, 255, 510, 255)
+    c.line(55, 285, 255, 285)
+    c.line(310, 285, 510, 285)
 
     c.setFillColor(COR_TEXTO)
 
     c.setFont("Helvetica", 8.5)
-    c.drawCentredString(155, 240, "RPO SERVIÇOS DE ENGENHARIA")
-    c.drawCentredString(155, 228, "ELÉTRICA LTDA")
+    c.drawCentredString(155, 270, "RPO SERVIÇOS DE ENGENHARIA")
+    c.drawCentredString(155, 258, "ELÉTRICA LTDA")
 
     c.setFont("Helvetica", 9)
-    c.drawCentredString(155, 214, "46.981.138/0001-10")
+    c.drawCentredString(155, 244, "46.981.138/0001-10")
 
     nome_ass = dados["nome_cliente"] if dados["nome_cliente"] else "Cliente"
     cpf_ass = dados["cpf_cliente"] if dados["cpf_cliente"] else "CPF"
 
     c.setFont("Helvetica", 9)
-    c.drawCentredString(410, 240, nome_ass)
-    c.drawCentredString(410, 226, cpf_ass)
+    c.drawCentredString(410, 270, nome_ass)
+    c.drawCentredString(410, 256, cpf_ass)
 
     desenhar_rodape(c, 8, total_paginas)
     c.save()
