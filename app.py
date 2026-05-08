@@ -1113,7 +1113,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     # QUADRO DE DADOS
     c.setStrokeColor(HexColor("#2c2c2c"))
     c.setLineWidth(1)
-    c.roundRect(45, 315, 500, 300, 12, fill=0, stroke=1)
+    c.roundRect(45, 365, 500, 300, 12, fill=0, stroke=1)
 
     campos = [
         "Nome do cliente:",
@@ -1124,7 +1124,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
         "Telefone:",
     ]
 
-    y = 565
+    y = 615
     for campo in campos:
         c.setFont("Helvetica", 10.5)
         c.setFillColor(COR_PRINCIPAL)
