@@ -811,10 +811,9 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
 
 
-# PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
-desenhar_fundo_padrao(c, largura, altura)
-desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
-
+    # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
+    desenhar_fundo_padrao(c, largura, altura)
+    desenhar_titulo_pagina(c, "Funcionamento do sistema solar")
     c.setFont("Helvetica", 10.5)
     c.setFillColor(COR_TEXTO)
     c.drawString(50, 770, "Entenda de forma visual como a energia solar funciona no sistema fotovoltaico.")
