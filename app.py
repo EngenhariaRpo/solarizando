@@ -735,88 +735,122 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 
         c.drawRightString(
             500,
-            85,
+            55,
             texto_maiusculo_seguro(dados["nome_cliente"]) or "CLIENTE"
 )
     except Exception:
         desenhar_capa_fallback(c, largura, altura, dados["nome_cliente"])
     desenhar_rodape(c, 1, total_paginas)
     c.showPage()
-        # PÁGINA 2 - SOBRE A EMPRESA
-    desenhar_fundo_padrao(c, largura, altura)
-    desenhar_titulo_pagina(c, "RPO SERVIÇOS")
+        ```python
+# PÁGINA 2 - SOBRE A EMPRESA
+desenhar_fundo_padrao(c, largura, altura)
+desenhar_titulo_pagina(c, "RPO SERVIÇOS")
 
-    y_blocos = 735
+y = 735
 
-    y_blocos = desenhar_bloco_titulo_texto(
-        c,
-        "Sobre a empresa",
-        [
-            "A RPO Serviços atua na elaboração de projetos e execução de instalações elétricas,",
-            "sistemas fotovoltaicos, consultorias em eficiência energética e manutenções."
-        ],
-        50,
-        y_blocos
-    )
+# SOBRE A EMPRESA
+y = desenhar_secao_titulo(c, "Sobre a empresa", 60, y)
 
-    y_blocos -= 20
+y = desenhar_paragrafo_pdf(
+    c,
+    "A RPO Serviços atua na elaboração de projetos e execução de instalações elétricas, "
+    "sistemas fotovoltaicos, consultorias em eficiência energética e manutenções.",
+    60,
+    y,
+    largura=430
+)
 
-    y_blocos = desenhar_bloco_titulo_texto(
-        c,
-        "Missão",
-        [
-            "Executar serviços em instalações elétricas e sistemas fotovoltaicos com excelência,",
-            "atendendo às normas de qualidade, segurança e meio ambiente."
-        ],
-        50,
-        y_blocos
-    )
-    y_blocos -= 20
+y -= 18
 
-    y_blocos = desenhar_bloco_titulo_texto(
-        c,
-        "Visão",
-        [
-            "Ser referência na execução de serviços em instalações elétricas, com estrutura",
-            "condizente para enfrentar novos desafios e superar as expectativas dos clientes."
-        ],
-        50,
-        y_blocos
-    )
-    y_blocos -= 20
+# MISSÃO
+y = desenhar_secao_titulo(c, "Missão", 60, y)
 
-    y_blocos = desenhar_bloco_titulo_texto(
-        c,
-        "Valores",
-        [
-            "Ética e transparência;",
-            "Satisfação do cliente;",
-            "Qualidade;",
-            "Valorização dos colaboradores;",
-            "Sustentabilidade."
-        ],
-        50,
-        y_blocos
-    )
-    y_blocos -= 20
+y = desenhar_paragrafo_pdf(
+    c,
+    "Executar serviços em instalações elétricas e sistemas fotovoltaicos com excelência, "
+    "atendendo às normas de qualidade, segurança e meio ambiente.",
+    60,
+    y,
+    largura=430
+)
 
-    desenhar_bloco_titulo_texto(
-        c,
-        "Dados da empresa",
-        [
-            "RPO SERVICOS DE ENGENHARIA ELETRICA LTDA",
-            "CNPJ: 46.981.138/0001-10",
-            "Rua Rui Barbosa, 2207, Sala 01, Pirajá",
-            "Teresina, PI",
-            "Telefone: (86) 98822-3936",
-            "Email: rpoengenhariapi@gmail.com",
-        ],
-        50,
-        y_blocos
-    )
+y -= 18
 
-    desenhar_rodape(c, 2, total_paginas)
-    c.showPage()
+# VISÃO
+y = desenhar_secao_titulo(c, "Visão", 60, y)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "Ser referência na execução de serviços em instalações elétricas, com estrutura "
+    "condizente para enfrentar novos desafios e superar as expectativas dos clientes.",
+    60,
+    y,
+    largura=430
+)
+
+y -= 18
+
+# VALORES
+y = desenhar_secao_titulo(c, "Valores", 60, y)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "Ética e transparência; satisfação do cliente; qualidade; valorização dos colaboradores; "
+    "sustentabilidade.",
+    60,
+    y,
+    largura=430
+)
+
+y -= 20
+
+# DADOS DA EMPRESA
+y = desenhar_secao_titulo(c, "Dados da empresa", 60, y)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "RPO SERVIÇOS DE ENGENHARIA ELÉTRICA LTDA",
+    60,
+    y,
+    largura=430
+)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "CNPJ: 46.981.138/0001-10",
+    60,
+    y,
+    largura=430
+)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "Rua Rui Barbosa, 2207, Sala 01, Pirajá, Teresina - PI",
+    60,
+    y,
+    largura=430
+)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "Telefone: (86) 98822-3936",
+    60,
+    y,
+    largura=430
+)
+
+y = desenhar_paragrafo_pdf(
+    c,
+    "E-mail: rpoengenhariapi@gmail.com",
+    60,
+    y,
+    largura=430
+)
+
+desenhar_rodape(c, 2, total_paginas)
+c.showPage()
+```
 
 
         # PÁGINA 3 - FUNCIONAMENTO DO SISTEMA SOLAR
@@ -857,7 +891,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = titulo_funcionamento("1. PAINÉIS SOLARES", y)
     y = desenhar_paragrafo_pdf(
         c,
-        "Captam a luz do sol e a transformam em energia elétrica em corrente contínua.",
+        "Os módulos solares captam a luz do sol e realizam a conversão da energia em corrente contínua para utilização no sistema fotovoltaico."
         50, y, largura=490
     )
     y -= 10
@@ -873,7 +907,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = titulo_funcionamento("3. QUADRO DE LUZ", y)
     y = desenhar_paragrafo_pdf(
         c,
-        "A energia já em corrente alternada é distribuída pelo quadro de luz para os circuitos da casa.",
+        "A energia elétrica convertida em corrente alternada é distribuída pelo quadro de luz para todos os circuitos elétricos da residência.",
         50, y, largura=490
     )
     y -= 10
@@ -881,7 +915,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = titulo_funcionamento("4. CONSUMO NA RESIDÊNCIA", y)
     y = desenhar_paragrafo_pdf(
         c,
-        "A energia produzida abastece os aparelhos e equipamentos da casa: lâmpadas, geladeira, máquina de lavar, chuveiro, tomadas, etc.",
+        "A energia produzida pelo sistema abastece os equipamentos e aparelhos elétricos da residência, como iluminação, tomadas, eletrodomésticos e demais dispositivos."
         50, y, largura=490
     )
     y -= 10
@@ -889,7 +923,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
     y = titulo_funcionamento("5. REDE ELÉTRICA", y)
     y = desenhar_paragrafo_pdf(
         c,
-        "Se a produção dos painéis for maior que o consumo, o excesso de energia é enviado para a rede elétrica. Se for menor, a energia necessária é complementada pela rede.",
+        "Quando a geração do sistema for superior ao consumo da unidade consumidora, o excedente de energia é injetado na rede elétrica, gerando créditos energéticos para compensação futura.",
         50, y, largura=490
     )
 
