@@ -414,9 +414,20 @@ def desenhar_paragrafo_pdf(c, texto, x, y, largura=495, tamanho=10, espacamento=
 
 def linhas_produtos(dados):
     lista = []
+
+    tipo_pdf = texto_maiusculo_seguro(dados["tipo_equipamento"])
+
+
+
+    if dados["quantidade_inversores"] > 1:
+        if tipo_pdf == "INVERSOR":
+            tipo_pdf = "INVERSORES"
+        elif tipo_pdf == "MICROINVERSOR":
+            tipo_pdf = "MICROINVERSORES"
+
     linha_inversor = (
         f"{dados['quantidade_inversores']:02d} "
-        f"{texto_maiusculo_seguro(dados['tipo_equipamento'])} "
+        f"{tipo_pdf} "
         f"{texto_maiusculo_seguro(dados['marca_inversor'])} "
         f"{texto_maiusculo_seguro(dados['modelo_inversor'])} "
         f"{dados['potencia_inversor_kw']:.2f}KW "
@@ -1556,6 +1567,8 @@ if st.button("Calcular proposta", use_container_width=True):
         "marca_modulo": marca_modulo,
         "potencia_modulo_wp": potencia_modulo_wp,
         "tecnologia_modulo": tecnologia_modulo,
+        "tipo_equipamento": tipo_equipamento,
+        "quantidade_inversores": quantidade_inversores,
         "marca_inversor": marca_inversor,
         "modelo_inversor": modelo_inversor,
         "potencia_inversor_kw": potencia_inversor_kw,
