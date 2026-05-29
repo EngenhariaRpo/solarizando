@@ -1351,11 +1351,45 @@ with col2:
     st.markdown("---")
     st.markdown("**Inversor**")
 
-    marca_inversor = st.text_input("Marca do inversor", value="SOLPLANET")
-    modelo_inversor = st.text_input("Modelo do inversor", value="ASW5000-S-G2")
-    potencia_inversor_kw = st.number_input("Potência do inversor (kW)", min_value=0.0, value=5.0, step=0.5)
-    tensao_inversor = st.text_input("Tensão do inversor", value="220V")
-    observacao_inversor = st.text_input("Observação do inversor", value="AFCI")
+    tipo_equipamento = st.selectbox(
+        "Tipo do equipamento",
+        ["Inversor", "Microinversor"]
+    )
+
+    quantidade_inversores = st.number_input(
+        "Quantidade",
+        min_value=1,
+        value=1,
+        step=1
+    )
+
+    marca_inversor = st.text_input(
+        f"Marca do {tipo_equipamento.lower()}",
+        value="SOLPLANET"
+    )
+
+    modelo_inversor = st.text_input(
+        f"Modelo do {tipo_equipamento.lower()}",
+        value="ASW5000-S-G2"
+    )
+
+    potencia_inversor_kw = st.number_input(
+        f"Potência do {tipo_equipamento.lower()} (kW)",
+        min_value=0.0,
+        value=5.0,
+        step=0.5
+    )
+
+    tensao_inversor = st.text_input(
+        f"Tensão do {tipo_equipamento.lower()}",
+        value="220V"
+    )
+
+    observacao_inversor = st.text_input(
+        f"Observação do {tipo_equipamento.lower()}",
+        value="AFCI"
+    )
+
 
     st.markdown("---")
 
