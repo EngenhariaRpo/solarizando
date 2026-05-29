@@ -416,14 +416,77 @@ def desenhar_paragrafo_pdf(c, texto, x, y, largura=495, tamanho=10, espacamento=
 def linhas_produtos(dados):
     lista = []
 
-    linha_inversor = (
-        f"01 INVERSOR {texto_maiusculo_seguro(dados['marca_inversor'])} "
-        f"{texto_maiusculo_seguro(dados['modelo_inversor'])} "
-        f"{dados['potencia_inversor_kw']:.0f}KW "
-        f"{texto_maiusculo_seguro(dados['tensao_inversor'])} "
-        f"{texto_maiusculo_seguro(dados['observacao_inversor'])}"
-    ).strip()
-    lista.append(" ".join(linha_inversor.split()))
+    st.subheader("Equipamentos")
+
+if "equipamentos" not in st.session_state:
+    st.session_state.equipamentos = [
+        {
+            "tipo": "INVERSOR",
+            "marca": "",
+            "modelo": "",
+            "potencia": 0.0,
+            "tensao": "",
+            "observacao": "",
+        }
+    ]
+
+if st.button("Adicionar equipamento"):
+    st.session_state.equipamentos.append({
+        "tipo": "INVERSOR",
+        "marca": "",
+        "modelo": "",
+        "potencia": 0.0,
+        "tensao": "",
+        "observacao": "",
+    })
+
+for i, equipamento in enumerate(st.session_state.equipamentos):
+    st.markdown(f"### Equipamento {i + 1}")
+
+    equipamento["tipo"] = st.selectbox(
+        "Tipo do equipamento",
+        ["INVERSOR", "MICROINVERSOR"],
+        key=f"tipo_equipamento_{i}"
+    )
+
+    equipamento["marca"] = st.text_input(
+        "Marca",
+        value=equipamento["marca"],
+        key=f"marca_equipamento_{i}"
+    )
+
+    equipamento["modelo"] = st.text_input(
+        "Modelo",
+        value=equipamento["modelo"],
+        key=f"modelo_equipamento_{i}"
+    )
+
+    equipamento["potencia"] = st.number_input(
+        "Potência (kW)",
+        min_value=0.0,
+        value=float(equipamento["potencia"]),
+        step=0.01,
+        key=f"potencia_equipamento_{i}"
+    )
+
+    equipamento["tensao"] = st.text_input(
+        "Tensão",
+        value=equipamento["tensao"],
+        key=f"tensao_equipamento_{i}"
+    )
+
+    equipamento["observacao"] = st.text_input(
+        "Observação",
+        value=equipamento["observacao"],
+        key=f"observacao_equipamento_{i}"
+    )
+
+    if len(st.session_state.equipamentos) > 1:
+        if st.button("Remover equipamento", key=f"remover_equipamento_{i}"):
+            st.session_state.equipamentos.pop(i)
+            st.rerun()
+
+dados["equipamentos"] = st.session_state.equipamentos
 
     linha_modulos = (
         f"{dados['num_modulos']:02d} MÓDULOS "
