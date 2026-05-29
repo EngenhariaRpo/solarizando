@@ -414,7 +414,18 @@ def desenhar_paragrafo_pdf(c, texto, x, y, largura=495, tamanho=10, espacamento=
 
 def linhas_produtos(dados):
     lista = []
+    linha_inversor = (
+        f"{dados['quantidade_inversores']:02d} "
+        f"{texto_maiusculo_seguro(dados['tipo_equipamento'])} "
+        f"{texto_maiusculo_seguro(dados['marca_inversor'])} "
+        f"{texto_maiusculo_seguro(dados['modelo_inversor'])} "
+        f"{dados['potencia_inversor_kw']:.2f}KW "
+        f"{texto_maiusculo_seguro(dados['tensao_inversor'])} "
+        f"{texto_maiusculo_seguro(dados['observacao_inversor'])}"
+    ).strip()
 
+    lista.append(" ".join(linha_inversor.split()))
+    
     linha_modulos = (
         f"{dados['num_modulos']:02d} MÓDULOS "
         f"{texto_maiusculo_seguro(dados['marca_modulo'])} "
