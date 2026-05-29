@@ -7,13 +7,25 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 
+st.set_page_config(page_title="Solarizando", layout="wide")
+
+SENHA_CORRETA = "Engenharia2014*"
+
+senha = st.text_input(
+    "Digite a senha para acessar o sistema",
+    type="password"
+)
+
+if senha != SENHA_CORRETA:
+    st.warning("Acesso restrito.")
+    st.stop()
+
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor, white
 
 
-st.set_page_config(page_title="Solarizando", layout="wide")
 
 
 # =========================================================
