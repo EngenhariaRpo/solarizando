@@ -7,7 +7,7 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Solarizando", layout="wide")
+st.set_page_config(page_title="RPO Solar", layout="wide")
 
 SENHA_CORRETA = "Engenharia2014*"
 
@@ -1322,7 +1322,7 @@ def gerar_pdf_proposta(dados, img_geracao_buffer):
 # INTERFACE
 # =========================================================
 
-st.title("Solarizando ☀️")
+st.title("RPO Solar ☀️")
 st.caption("Sistema de proposta solar com PDF, cálculo automático e gráficos")
 
 st.sidebar.header("Configurações")
