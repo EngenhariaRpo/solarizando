@@ -486,7 +486,7 @@ for i, equipamento in enumerate(st.session_state.equipamentos):
             st.session_state.equipamentos.pop(i)
             st.rerun()
 
-dados["equipamentos"] = st.session_state.equipamentos
+    dados["equipamentos"] = st.session_state.equipamentos
 
     linha_modulos = (
         f"{dados['num_modulos']:02d} MÓDULOS "
